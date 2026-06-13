@@ -1,0 +1,144 @@
+:root {
+  --deep-purple: #2a1638;
+  --purple: #6f3f86;
+  --pink: #ee5d96;
+  --soft-pink: #f8c7dc;
+  --text: #fff8ff;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #140c1d;
+  color: var(--text);
+}
+
+.hero-parallax {
+  position: relative;
+  min-height: 115vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 22% 30%, rgba(238, 93, 150, .34), transparent 28%),
+    radial-gradient(circle at 78% 62%, rgba(248, 199, 220, .22), transparent 28%),
+    linear-gradient(135deg, #1b1028 0%, #3b214f 48%, #8e4f83 100%);
+}
+
+.parallax-layer {
+  position: absolute;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.bg-glow {
+  inset: -15%;
+  z-index: -3;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(255, 255, 255, .18), transparent 22%),
+    radial-gradient(circle at 8% 78%, rgba(255, 139, 190, .35), transparent 20%);
+  filter: blur(10px);
+}
+
+.phones {
+  width: min(88vw, 980px);
+  z-index: 2;
+  bottom: 6vh;
+  filter: drop-shadow(0 38px 60px rgba(0,0,0,.35));
+}
+
+.hero-content {
+  position: absolute;
+  z-index: 3;
+  top: 8vh;
+  left: clamp(24px, 7vw, 100px);
+  max-width: 520px;
+  text-shadow: 0 18px 40px rgba(0,0,0,.26);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: clamp(13px, 1.3vw, 16px);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--soft-pink);
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(38px, 6vw, 82px);
+  line-height: .94;
+  letter-spacing: -.06em;
+}
+
+.subtitle {
+  max-width: 450px;
+  margin: 20px 0 0;
+  font-size: clamp(16px, 1.7vw, 21px);
+  line-height: 1.45;
+  color: rgba(255, 248, 255, .82);
+}
+
+.heart-line {
+  width: min(35vw, 430px);
+  opacity: .76;
+  filter: drop-shadow(0 0 18px rgba(255, 148, 195, .55));
+  z-index: 1;
+}
+
+.heart-left {
+  left: -7vw;
+  top: 33vh;
+  transform: rotate(-10deg);
+}
+
+.heart-right {
+  right: -8vw;
+  bottom: 13vh;
+  transform: rotate(16deg) scaleX(-1);
+  opacity: .58;
+}
+
+.orb {
+  border-radius: 999px;
+  filter: blur(2px);
+  opacity: .5;
+  background: radial-gradient(circle, rgba(255,255,255,.56), rgba(255,117,178,.18) 55%, transparent 72%);
+  z-index: -1;
+}
+
+.orb-one { width: 280px; height: 280px; right: 8vw; top: 12vh; }
+.orb-two { width: 180px; height: 180px; left: 14vw; bottom: 17vh; }
+
+.after-section {
+  min-height: 80vh;
+  padding: 12vh 8vw;
+  background: #fff;
+  color: #20152b;
+}
+
+.after-section h2 {
+  font-size: clamp(32px, 5vw, 64px);
+  margin: 0 0 16px;
+}
+
+.after-section p {
+  font-size: 20px;
+  max-width: 640px;
+}
+
+@media (max-width: 760px) {
+  .hero-parallax { min-height: 108vh; }
+  .hero-content { top: 5vh; left: 24px; right: 24px; }
+  .phones { width: 118vw; bottom: 4vh; }
+  .heart-left { left: -28vw; top: 45vh; }
+  .heart-right { right: -28vw; bottom: 9vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax-layer, .hero-content { transform: none !important; }
+}
