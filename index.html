@@ -357,42 +357,37 @@
 <script type="text/babel">
 
 // ═══════════════════════════════════════════════════════════════════
-// PORTFOLIO DATA
+// DEFAULT CONTENT — all editable text lives here
 // ═══════════════════════════════════════════════════════════════════
-const PORTFOLIO_DATA = {
-  name: "Elad Adler",
-  role: "UX/UI Designer & Product Strategist",
-  location: "Jerusalem, IL",
-  bioShort:
-    "Multidisciplinary UX/UI designer (B.Des., Bezalel) and product strategist with an M.A. in Psychodrama. I combine human psychology with functional design to build intuitive digital experiences.",
-  bioLong:
-    "I lead social-tech ventures and non-profits, leveraging AI-driven tools, user advocacy and empathetic problem-solving. My favourite work sits where people are most human: care teams, communities, learning.",
+const DEFAULT_CONTENT = {
+  kicker: "ux/ui design · product strategy · jerusalem",
+  heroT1: "Intuitive products, ",
+  heroT2: "built on human psychology",
+  heroT3: ".",
+  bioShort: "Multidisciplinary UX/UI designer (B.Des., Bezalel) and product strategist with an M.A. in Psychodrama. I combine human psychology with functional design to build intuitive digital experiences.",
+  stickers: ["B.Des — Bezalel", "M.A. Psychodrama", "AI-driven tools", "Social-tech"],
   projects: [
     {
-      num: "01",
-      title: "Sababa & All",
+      num: "01", title: "Sababa & All",
       meta: "Web app · UX/UI lead · Claude Code",
       desc: "Transformed manual matchmaking into a streamlined digital workflow — better organisation, privacy-first, and actually adopted by the team.",
       tags: ["UX/UI lead", "Workflow design", "Privacy-first"],
       image: "assets/phones-mockup.png",
     },
     {
-      num: "02",
-      title: "Balance",
+      num: "02", title: "Balance",
       meta: "Web app · Base44 · vibe coding",
       desc: "Medication management for a Jerusalem 'Soteria' house. Medication errors dropped from 5% to 0% — faster and safer for all three user personas.",
       tags: ["Health & care", "3 personas", "5% → 0% errors"],
     },
     {
-      num: "03",
-      title: "ShiftWise",
+      num: "03", title: "ShiftWise",
       meta: "Scheduling platform · Base44",
       desc: "AI-assisted shift scheduling for therapeutic and residential care teams — availability, swaps and fairness management, minus the spreadsheet headache.",
       tags: ["Complex system", "AI-assisted", "Fairness engine"],
     },
     {
-      num: "04",
-      title: "BibleConnect",
+      num: "04", title: "BibleConnect",
       meta: "Web app for '929' · Claude Code",
       desc: "An interactive Bible learning app — study, exploration and AI-powered conversation that makes an ancient text personal and accessible.",
       tags: ["Learning", "AI conversation", "Content UX"],
@@ -403,244 +398,241 @@ const PORTFOLIO_DATA = {
     { num: "06", note: "open slot — side project / experiment" },
     { num: "07", note: "open slot — visual / branding piece" },
   ],
+  aboutTitle: "Psychology first, pixels second.",
+  bioLong: "I lead social-tech ventures and non-profits, leveraging AI-driven tools, user advocacy and empathetic problem-solving. My favourite work sits where people are most human: care teams, communities, learning.",
+  aboutQuote: "→ design is empathy with a grid system.",
+  facts: [
+    { k: "Education", v: "B.Des Bezalel · M.A. Psychodrama" },
+    { k: "Focus",     v: "Care, community, learning" },
+    { k: "Tools",     v: "Figma · Claude Code · Base44" },
+    { k: "Currently", v: "Open to good problems" },
+  ],
+  poemsHeading: "Poems, occasionally",
   poems: {
-    note: "sample lines — to be replaced with your poems",
-    en: {
-      title: "untitled (cursor)",
-      lines: ["the cursor blinks", "like someone breathing", "in another room —", "I leave the light on."],
-    },
-    he: {
-      title: "בין פיקסל לפיקסל",
-      lines: ["בֵּין פִּיקְסֶל לְפִיקְסֶל", "נִשְׁאָר רֶוַח קָטָן", "שֶׁאֶפְשָׁר לָגוּר בּוֹ."],
-    },
+    note: "sample lines — replace with your poems",
+    en: { title: "untitled (cursor)", text: "the cursor blinks\nlike someone breathing\nin another room —\nI leave the light on." },
+    he: { title: "בין פיקסל לפיקסל", text: "בֵּין פִּיקְסֶל לְפִיקְסֶל\nנִשְׁאָר רֶוַח קָטָן\nשֶׁאֶפְשָׁר לָגוּר בּוֹ." },
+    slots: ["open slot — drop a poem here", "open slot — he or en"],
   },
+  photosHeading: "Through the lens",
+  photosSubhead: "(film + digital)",
   photos: [
     { id: "ph1", caption: "photo 01 — street, jlm" },
     { id: "ph2", caption: "photo 02 — portrait" },
     { id: "ph3", caption: "photo 03 — texture" },
     { id: "ph4", caption: "photo 04 — light" },
   ],
+  footerH1: "Have a good problem? ",
+  footerH2: "Let's talk.",
   links: [
     { label: "LinkedIn", href: "https://linkedin.com/in/eladadler" },
-    { label: "Behance", href: "https://behance.net/eladadler" },
-    { label: "GitHub", href: "https://github.com/eladadler" },
+    { label: "Behance",  href: "https://behance.net/eladadler" },
+    { label: "GitHub",   href: "https://github.com/eladadler" },
   ],
+  copyright: "© 2026 Elad Adler",
+  locationMeta: "Jerusalem, IL",
 };
 
-const GRAIN_URI =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
+// ═══════════════════════════════════════════════════════════════════
+// CONTENT PERSISTENCE
+// ═══════════════════════════════════════════════════════════════════
+const CONTENT_KEY = 'elad_portfolio_v1';
 
+function setIn(obj, path, val) {
+  if (!path || path.length === 0) return val;
+  const [h, ...rest] = path;
+  if (Array.isArray(obj)) {
+    const a = [...obj];
+    a[h] = setIn(a[h], rest, val);
+    return a;
+  }
+  return { ...obj, [h]: setIn(obj ? obj[h] : undefined, rest, val) };
+}
+
+function loadContent() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CONTENT_KEY));
+    if (s && typeof s === 'object') return Object.assign({}, DEFAULT_CONTENT, s);
+  } catch {}
+  return DEFAULT_CONTENT;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// GRAIN OVERLAY
+// ═══════════════════════════════════════════════════════════════════
+const GRAIN_URI = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
 function GrainOverlay({ opacity = 0.07 }) {
+  return <div aria-hidden="true" style={{ position:"fixed", inset:0, backgroundImage:GRAIN_URI, opacity, mixBlendMode:"overlay", pointerEvents:"none", zIndex:5 }} />;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// EDIT CONTEXT
+// ═══════════════════════════════════════════════════════════════════
+const EditCtx = React.createContext({ em: false, content: DEFAULT_CONTENT, up: () => {}, flash: () => {} });
+
+// E = Editable field. Static in view mode, contenteditable in edit mode.
+// path: array like ['bioShort'] or ['projects', 0, 'title']
+function E({ v = '', tag: T = 'span', multi = false, cn = '', st, path }) {
+  const { em, up, flash } = React.useContext(EditCtx);
+  const ref = React.useRef(null);
+  const committed = React.useRef(v);
+
+  // Sync DOM if value changed from outside (e.g. after reset)
+  React.useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el || !em) return;
+    if (committed.current !== v) {
+      committed.current = v;
+      if (multi) el.innerText = v; else el.textContent = v;
+    }
+  }, [v, em, multi]);
+
+  if (!em) return <T className={cn} style={st}>{v}</T>;
+
+  const save = (e) => {
+    const nv = (multi ? e.currentTarget.innerText : e.currentTarget.textContent).trim();
+    if (nv !== committed.current) {
+      committed.current = nv;
+      if (path) up(path, nv);
+      flash();
+    }
+  };
+
   return (
-    <div aria-hidden="true" style={{
-      position: "fixed", inset: 0,
-      backgroundImage: GRAIN_URI,
-      opacity, mixBlendMode: "overlay",
-      pointerEvents: "none", zIndex: 5,
-    }} />
+    <T ref={ref} className={cn ? cn + ' ed-f' : 'ed-f'} style={st}
+      contentEditable suppressContentEditableWarning
+      onBlur={save}
+      onKeyDown={multi ? undefined : (e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); } }}
+    >{v}</T>
+  );
+}
+
+// Replace-image button that overlays on a project image in edit mode
+function ReplaceImgBtn({ path }) {
+  const { em, up, flash } = React.useContext(EditCtx);
+  const ref = React.useRef(null);
+  if (!em) return null;
+  const pick = (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => { up(path, ev.target.result); flash(); };
+    reader.readAsDataURL(f);
+    e.target.value = '';
+  };
+  return (
+    <div className="img-replace" onClick={() => ref.current.click()}>
+      <span>↑ Replace image</span>
+      <input ref={ref} type="file" accept="image/png,image/jpeg,image/webp,image/avif" hidden onChange={pick} />
+    </div>
   );
 }
 
 // ═══════════════════════════════════════════════════════════════════
 // TWEAKS PANEL
 // ═══════════════════════════════════════════════════════════════════
-const __TWEAKS_STYLE = `
+const __TW = `
   .twk-panel{position:fixed;right:16px;bottom:16px;z-index:9999;width:280px;
     max-height:calc(100vh - 32px);display:flex;flex-direction:column;
-    background:rgba(20,21,25,.88);color:#e8e8e4;
-    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    background:rgba(20,21,25,.92);color:#e8e8e4;
+    -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
     border:.5px solid rgba(255,255,255,.1);border-radius:14px;
-    box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 12px 40px rgba(0,0,0,.55);
-    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
-  .twk-hd{display:flex;align-items:center;justify-content:space-between;
-    padding:10px 8px 10px 14px;cursor:move;user-select:none;border-bottom:.5px solid rgba(255,255,255,.08)}
-  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
-  .twk-x{appearance:none;border:0;background:transparent;color:rgba(232,232,228,.45);
-    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:22px;padding:0;text-align:center}
+    box-shadow:0 12px 40px rgba(0,0,0,.55);
+    font:11.5px/1.4 ui-sans-serif,system-ui,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 8px 10px 14px;cursor:move;user-select:none;border-bottom:.5px solid rgba(255,255,255,.08)}
+  .twk-hd b{font-size:12px;font-weight:600}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(232,232,228,.45);width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:22px;padding:0;text-align:center}
   .twk-x:hover{background:rgba(255,255,255,.08);color:#e8e8e4}
-  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
-    overflow-y:auto;overflow-x:hidden;min-height:0;
-    scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;min-height:0}
   .twk-row{display:flex;flex-direction:column;gap:5px}
-  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
-  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:rgba(232,232,228,.6)}
-  .twk-lbl>span:first-child{font-weight:500}
-  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-    color:rgba(232,232,228,.35);padding:10px 0 0}
+  .twk-lbl{display:flex;justify-content:space-between;color:rgba(232,232,228,.6);font-weight:500}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(232,232,228,.35);padding:10px 0 0}
   .twk-sect:first-child{padding-top:0}
-  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
-    border:.5px solid rgba(255,255,255,.1);border-radius:7px;
-    background:rgba(255,255,255,.06);color:inherit;font:inherit;outline:none}
-  .twk-field:focus{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.1)}
-  select.twk-field{padding-right:22px;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(255,255,255,.4)' d='M0 0h10L5 6z'/></svg>");
-    background-repeat:no-repeat;background-position:right 8px center}
-  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
-    background:rgba(255,255,255,.07);user-select:none}
-  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
-    background:rgba(255,255,255,.14);box-shadow:0 1px 2px rgba(0,0,0,.3);
-    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
-  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
-    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
-    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;overflow-wrap:anywhere}
-  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
-    background:rgba(255,255,255,.15);transition:background .15s;cursor:default;padding:0;flex-shrink:0}
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;border:.5px solid rgba(255,255,255,.1);border-radius:7px;background:rgba(255,255,255,.06);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(255,255,255,.25)}
+  select.twk-field{padding-right:22px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(255,255,255,.4)' d='M0 0h10L5 6z'/></svg>");background-repeat:no-repeat;background-position:right 8px center}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;background:rgba(255,255,255,.07);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;background:rgba(255,255,255,.14);transition:left .15s,width .15s}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;background:rgba(255,255,255,.15);transition:background .15s;cursor:default;padding:0;flex-shrink:0}
   .twk-toggle[data-on="1"]{background:#34c759}
-  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
-    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.35);transition:transform .15s}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .15s}
   .twk-toggle[data-on="1"] i{transform:translateX(14px)}
   .twk-chips{display:flex;gap:6px;flex-wrap:wrap}
-  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;min-width:40px;
-    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
-    box-shadow:0 0 0 .5px rgba(255,255,255,.1),0 1px 2px rgba(0,0,0,.3);
-    transition:transform .12s,box-shadow .12s}
-  .twk-chip:hover{transform:translateY(-1px);box-shadow:0 0 0 .5px rgba(255,255,255,.2),0 4px 10px rgba(0,0,0,.4)}
-  .twk-chip[data-on="1"]{box-shadow:0 0 0 2px #fff,0 2px 6px rgba(0,0,0,.3)}
-  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.5))}
-  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
-    background:rgba(255,255,255,.9);color:#141519;font:inherit;font-weight:500;cursor:default}
-  .twk-btn:hover{background:#fff}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:40px;height:46px;padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;box-shadow:0 0 0 .5px rgba(255,255,255,.1);transition:transform .12s}
+  .twk-chip:hover{transform:translateY(-1px)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 2px #fff}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px}
 `;
 
 function useTweaks(defaults) {
   const [values, setValues] = React.useState(defaults);
-  const setTweak = React.useCallback((keyOrEdits, val) => {
-    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null ? keyOrEdits : { [keyOrEdits]: val };
-    setValues((prev) => ({ ...prev, ...edits }));
-  }, []);
+  const setTweak = React.useCallback((k, v) => setValues((p) => ({ ...p, [k]: v })), []);
   return [values, setTweak];
 }
-
 function TweaksPanel({ title = 'Tweaks', children }) {
   const [open, setOpen] = React.useState(false);
   const dragRef = React.useRef(null);
-  const offsetRef = React.useRef({ x: 16, y: 16 });
-  const PAD = 16;
-
-  const clampToViewport = React.useCallback(() => {
-    const panel = dragRef.current; if (!panel) return;
-    const w = panel.offsetWidth, h = panel.offsetHeight;
-    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
-    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
-    offsetRef.current = {
-      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
-      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
-    };
-    panel.style.right = offsetRef.current.x + 'px';
-    panel.style.bottom = offsetRef.current.y + 'px';
+  const offRef = React.useRef({ x: 16, y: 16 });
+  const clamp = React.useCallback(() => {
+    const p = dragRef.current; if (!p) return;
+    const maxR = Math.max(16, window.innerWidth - p.offsetWidth - 16);
+    const maxB = Math.max(16, window.innerHeight - p.offsetHeight - 16);
+    offRef.current = { x: Math.min(maxR, Math.max(16, offRef.current.x)), y: Math.min(maxB, Math.max(16, offRef.current.y)) };
+    p.style.right = offRef.current.x + 'px'; p.style.bottom = offRef.current.y + 'px';
   }, []);
-
-  React.useEffect(() => {
-    if (!open) return;
-    clampToViewport();
-    const ro = new ResizeObserver(clampToViewport);
-    ro.observe(document.documentElement);
-    return () => ro.disconnect();
-  }, [open, clampToViewport]);
-
-  const onDragStart = (e) => {
-    const panel = dragRef.current; if (!panel) return;
-    const r = panel.getBoundingClientRect();
-    const sx = e.clientX, sy = e.clientY;
-    const startRight = window.innerWidth - r.right, startBottom = window.innerHeight - r.bottom;
-    const move = (ev) => {
-      offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) };
-      clampToViewport();
-    };
-    const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
-    window.addEventListener('mousemove', move); window.addEventListener('mouseup', up);
+  React.useEffect(() => { if (!open) return; clamp(); const ro = new ResizeObserver(clamp); ro.observe(document.documentElement); return () => ro.disconnect(); }, [open, clamp]);
+  const drag = (e) => {
+    const p = dragRef.current; if (!p) return;
+    const r = p.getBoundingClientRect(), sx = e.clientX, sy = e.clientY;
+    const sr = window.innerWidth - r.right, sb = window.innerHeight - r.bottom;
+    const mv = (ev) => { offRef.current = { x: sr-(ev.clientX-sx), y: sb-(ev.clientY-sy) }; clamp(); };
+    const up = () => { window.removeEventListener('mousemove', mv); window.removeEventListener('mouseup', up); };
+    window.addEventListener('mousemove', mv); window.addEventListener('mouseup', up);
   };
-
   if (!open) return (
     <>
-      <style>{__TWEAKS_STYLE}</style>
-      <button onClick={() => setOpen(true)} style={{
-        position: 'fixed', right: 16, bottom: 16, zIndex: 9999,
-        appearance: 'none', border: 'none', borderRadius: '10px',
-        background: 'rgba(20,21,25,.88)', color: '#e8e8e4',
-        backdropFilter: 'blur(24px)', padding: '9px 16px',
-        font: '11.5px/1.4 ui-sans-serif,system-ui,sans-serif', fontWeight: 600,
-        cursor: 'default', letterSpacing: '.01em',
-        boxShadow: '0 0 0 .5px rgba(255,255,255,.1),0 8px 24px rgba(0,0,0,.4)',
-      }}>⚙ Tweaks</button>
+      <style>{__TW}</style>
+      <button onClick={() => setOpen(true)} style={{ position:'fixed', right:16, bottom:16, zIndex:9999, appearance:'none', border:'none', borderRadius:10, background:'rgba(20,21,25,.9)', color:'#e8e8e4', backdropFilter:'blur(24px)', padding:'9px 16px', font:'11.5px/1.4 ui-sans-serif,system-ui,sans-serif', fontWeight:600, cursor:'default', boxShadow:'0 0 0 .5px rgba(255,255,255,.1),0 8px 24px rgba(0,0,0,.4)' }}>⚙ Tweaks</button>
     </>
   );
-
   return (
     <>
-      <style>{__TWEAKS_STYLE}</style>
-      <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
-        <div className="twk-hd" onMouseDown={onDragStart}>
-          <b>{title}</b>
-          <button className="twk-x" onClick={() => setOpen(false)}>✕</button>
-        </div>
+      <style>{__TW}</style>
+      <div ref={dragRef} className="twk-panel" style={{ right:offRef.current.x, bottom:offRef.current.y }}>
+        <div className="twk-hd" onMouseDown={drag}><b>{title}</b><button className="twk-x" onClick={() => setOpen(false)}>✕</button></div>
         <div className="twk-body">{children}</div>
       </div>
     </>
   );
 }
-
 function TweakSection({ label }) { return <div className="twk-sect">{label}</div>; }
 function TweakRow({ label, children }) { return <div className="twk-row"><div className="twk-lbl"><span>{label}</span></div>{children}</div>; }
 function TweakToggle({ label, value, onChange }) {
-  return (
-    <div className="twk-row-h" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
-      <div className="twk-lbl"><span>{label}</span></div>
-      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'} onClick={() => onChange(!value)}><i /></button>
-    </div>
-  );
+  return <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:10 }}><div className="twk-lbl"><span>{label}</span></div><button type="button" className="twk-toggle" data-on={value?'1':'0'} onClick={()=>onChange(!value)}><i/></button></div>;
 }
 function TweakSelect({ label, value, options, onChange }) {
-  return (
-    <TweakRow label={label}>
-      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
-        {options.map((o) => <option key={o} value={o}>{o}</option>)}
-      </select>
-    </TweakRow>
-  );
+  return <TweakRow label={label}><select className="twk-field" value={value} onChange={(e)=>onChange(e.target.value)}>{options.map((o)=><option key={o} value={o}>{o}</option>)}</select></TweakRow>;
 }
 function TweakRadio({ label, value, options, onChange }) {
-  const n = options.length;
-  const idx = Math.max(0, options.indexOf(value));
+  const n = options.length, idx = Math.max(0, options.indexOf(value));
   return (
     <TweakRow label={label}>
-      <div role="radiogroup" style={{ position: 'relative', display: 'flex', padding: 2, borderRadius: 8, background: 'rgba(255,255,255,.07)', userSelect: 'none' }}>
-        <div style={{ position: 'absolute', top: 2, bottom: 2, borderRadius: 6, background: 'rgba(255,255,255,.14)', boxShadow: '0 1px 2px rgba(0,0,0,.3)', transition: 'left .15s,width .15s', left: `calc(2px + ${idx} * (100% - 4px) / ${n})`, width: `calc((100% - 4px) / ${n})` }} />
-        {options.map((o) => (
-          <button key={o} type="button" onClick={() => onChange(o)} style={{ appearance: 'none', position: 'relative', zIndex: 1, flex: 1, border: 0, background: 'transparent', color: 'inherit', font: 'inherit', fontWeight: 500, minHeight: 22, borderRadius: 6, cursor: 'default', padding: '4px 6px', lineHeight: 1.2 }}>{o}</button>
-        ))}
+      <div role="radiogroup" style={{ position:'relative', display:'flex', padding:2, borderRadius:8, background:'rgba(255,255,255,.07)', userSelect:'none' }}>
+        <div style={{ position:'absolute', top:2, bottom:2, borderRadius:6, background:'rgba(255,255,255,.14)', transition:'left .15s,width .15s', left:`calc(2px + ${idx} * (100% - 4px) / ${n})`, width:`calc((100% - 4px) / ${n})` }} />
+        {options.map((o)=><button key={o} type="button" onClick={()=>onChange(o)} style={{ appearance:'none', position:'relative', zIndex:1, flex:1, border:0, background:'transparent', color:'inherit', font:'inherit', fontWeight:500, minHeight:22, borderRadius:6, cursor:'default', padding:'4px 6px', lineHeight:1.2 }}>{o}</button>)}
       </div>
     </TweakRow>
   );
 }
-
-function __twkIsLight(hex) {
-  const h = String(hex).replace('#', '');
-  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
-  const n = parseInt(x.slice(0, 6), 16);
-  if (Number.isNaN(n)) return true;
-  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
-  return r * 299 + g * 587 + b * 114 > 148000;
-}
-const CheckIcon = ({ light }) => (
-  <svg viewBox="0 0 14 14" style={{ position: 'absolute', top: 6, left: 6, width: 13, height: 13, filter: 'drop-shadow(0 1px 1px rgba(0,0,0,.5))' }} aria-hidden="true">
-    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" stroke={light ? 'rgba(0,0,0,.8)' : '#fff'} />
-  </svg>
-);
+function __light(h) { const x=String(h).replace('#','').padEnd(6,'0'); const n=parseInt(x,16); if(isNaN(n))return true; return ((n>>16)&255)*299+((n>>8)&255)*587+(n&255)*114>148000; }
 function TweakColor({ label, value, options, onChange }) {
-  const key = (o) => String(o).toLowerCase();
-  const cur = key(value);
+  const cur = String(value).toLowerCase();
   return (
     <TweakRow label={label}>
       <div className="twk-chips" role="radiogroup">
-        {options.map((o, i) => {
-          const on = key(o) === cur;
-          return (
-            <button key={i} type="button" className="twk-chip" data-on={on ? '1' : '0'}
-              style={{ background: o }} onClick={() => onChange(o)}>
-              {on && <CheckIcon light={__twkIsLight(o)} />}
-            </button>
-          );
+        {options.map((o,i)=>{
+          const on = String(o).toLowerCase()===cur;
+          return <button key={i} type="button" className="twk-chip" data-on={on?'1':'0'} style={{background:o}} onClick={()=>onChange(o)}>{on&&<svg viewBox="0 0 14 14" style={{position:'absolute',top:6,left:6,width:13,height:13}} aria-hidden="true"><path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" stroke={__light(o)?'rgba(0,0,0,.8)':'#fff'}/></svg>}</button>;
         })}
       </div>
     </TweakRow>
@@ -648,279 +640,221 @@ function TweakColor({ label, value, options, onChange }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// THEME & TEXTURE DEFINITIONS
+// THEME & TEXTURE
 // ═══════════════════════════════════════════════════════════════════
 const C_THEMES = {
-  "Cool Paper": { bg:"#EEEEEB", ink:"#16171A", inkRgb:"22,23,26", accent:"#2B43E8", accentRgb:"43,67,232", accentBright:"#5C73FF", surface:"#FFFFFF", invertBg:"#16171A", invertText:"#EEEEEB", invertRgb:"238,238,235" },
-  "Warm Sand":  { bg:"#EDE6D8", ink:"#221B12", inkRgb:"34,27,18",  accent:"#BF4D17", accentRgb:"191,77,23",  accentBright:"#E07B3A", surface:"#FBF6EC", invertBg:"#221B12", invertText:"#EDE6D8", invertRgb:"237,230,216" },
-  "Sage":       { bg:"#E4E8DF", ink:"#171C14", inkRgb:"23,28,20",  accent:"#2F6B43", accentRgb:"47,107,67",  accentBright:"#4E9A66", surface:"#FAFCF6", invertBg:"#171C14", invertText:"#E4E8DF", invertRgb:"228,232,223" },
-  "Ink (Dark)": { bg:"#141519", ink:"#E8E8E4", inkRgb:"232,232,228", accent:"#7184FF", accentRgb:"113,132,255", accentBright:"#97A4FF", surface:"#1E2026", invertBg:"#E8E8E4", invertText:"#141519", invertRgb:"20,21,25" },
-  "Ember (Dark)":{ bg:"#181314", ink:"#F0E7E2", inkRgb:"240,231,226", accent:"#E8814B", accentRgb:"232,129,75", accentBright:"#F2A074", surface:"#221B1C", invertBg:"#F0E7E2", invertText:"#181314", invertRgb:"24,19,20" },
+  "Cool Paper":  { bg:"#EEEEEB", ink:"#16171A", inkRgb:"22,23,26",    accent:"#2B43E8", accentRgb:"43,67,232",   accentBright:"#5C73FF", surface:"#FFFFFF", invertBg:"#16171A", invertText:"#EEEEEB", invertRgb:"238,238,235" },
+  "Warm Sand":   { bg:"#EDE6D8", ink:"#221B12", inkRgb:"34,27,18",    accent:"#BF4D17", accentRgb:"191,77,23",   accentBright:"#E07B3A", surface:"#FBF6EC", invertBg:"#221B12", invertText:"#EDE6D8", invertRgb:"237,230,216" },
+  "Sage":        { bg:"#E4E8DF", ink:"#171C14", inkRgb:"23,28,20",    accent:"#2F6B43", accentRgb:"47,107,67",   accentBright:"#4E9A66", surface:"#FAFCF6", invertBg:"#171C14", invertText:"#E4E8DF", invertRgb:"228,232,223" },
+  "Ink (Dark)":  { bg:"#141519", ink:"#E8E8E4", inkRgb:"232,232,228", accent:"#7184FF", accentRgb:"113,132,255", accentBright:"#97A4FF", surface:"#1E2026", invertBg:"#E8E8E4", invertText:"#141519", invertRgb:"20,21,25"   },
+  "Ember (Dark)":{ bg:"#181314", ink:"#F0E7E2", inkRgb:"240,231,226", accent:"#E8814B", accentRgb:"232,129,75",  accentBright:"#F2A074", surface:"#221B1C", invertBg:"#F0E7E2", invertText:"#181314", invertRgb:"24,19,20"   },
 };
-
 const C_TEXTURES = {
   "Grid":   { image:"linear-gradient(rgba(var(--ink-rgb),0.05) 1px, transparent 1px)", size:"100% 64px" },
   "Dots":   { image:"radial-gradient(rgba(var(--ink-rgb),0.13) 1px, transparent 1px)", size:"22px 22px" },
   "Cursor": { image:"none", size:"auto" },
   "Plain":  { image:"none", size:"auto" },
 };
-
 const C_ACCENTS = ["#2B43E8","#7184FF","#22D3EE","#4ADE80","#F59E0B","#F472B6","#E8814B","#FF5C5C"];
-const C_PARALLAX_AMT = { "Off": 0, "Subtle": 0.55, "Strong": 1 };
-
-function C_hexToRgbArr(h) {
-  h = String(h).replace("#","");
-  if (h.length === 3) h = h.split("").map((c) => c+c).join("");
-  const n = parseInt(h,16);
-  return [(n>>16)&255,(n>>8)&255,n&255];
-}
-function C_rgb(h) { return C_hexToRgbArr(h).join(","); }
-function C_lighten(h, amt) {
-  const [r,g,b] = C_hexToRgbArr(h);
-  const L = (v) => Math.round(v+(255-v)*amt);
-  return "rgb("+L(r)+","+L(g)+","+L(b)+")";
-}
+const C_PAR = { "Off":0, "Subtle":0.55, "Strong":1 };
+function hexRgb(h) { h=String(h).replace("#",""); if(h.length===3)h=h.split("").map(c=>c+c).join(""); const n=parseInt(h,16); return [(n>>16)&255,(n>>8)&255,n&255]; }
+function rgb(h) { return hexRgb(h).join(","); }
+function lighten(h,a) { const [r,g,b]=hexRgb(h); const L=v=>Math.round(v+(255-v)*a); return `rgb(${L(r)},${L(g)},${L(b)})`; }
 
 // ═══════════════════════════════════════════════════════════════════
-// DOT FIELD (cursor-following interactive canvas background)
+// DOT FIELD
 // ═══════════════════════════════════════════════════════════════════
 function CDotField({ active, inkRgb, accentRgb, reduce }) {
-  const canvasRef = React.useRef(null);
-  const stateRef = React.useRef({ dots:[], mouse:{x:-9999,y:-9999}, raf:0, w:0, h:0 });
-
+  const cvs = React.useRef(null);
+  const S = React.useRef({ dots:[], mouse:{x:-9999,y:-9999}, raf:0, w:0, h:0 });
   React.useEffect(() => {
     if (!active) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const S = stateRef.current;
-    const GAP = 34, R = 150;
-
+    const canvas = cvs.current, ctx = canvas.getContext("2d"), s = S.current;
+    const GAP=34, R=150;
     const build = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      S.w = window.innerWidth; S.h = window.innerHeight;
-      canvas.width = S.w * dpr; canvas.height = S.h * dpr;
-      canvas.style.width = S.w + "px"; canvas.style.height = S.h + "px";
+      const dpr=Math.min(window.devicePixelRatio||1,2);
+      s.w=window.innerWidth; s.h=window.innerHeight;
+      canvas.width=s.w*dpr; canvas.height=s.h*dpr;
+      canvas.style.width=s.w+"px"; canvas.style.height=s.h+"px";
       ctx.setTransform(dpr,0,0,dpr,0,0);
-      const cols = Math.ceil(S.w/GAP)+1, rows = Math.ceil(S.h/GAP)+1;
-      const offx = (S.w-(cols-1)*GAP)/2, offy = (S.h-(rows-1)*GAP)/2;
-      const dots = [];
-      for (let r=0; r<rows; r++) for (let c=0; c<cols; c++) {
-        const bx=offx+c*GAP, by=offy+r*GAP;
-        dots.push({bx,by,x:bx,y:by});
-      }
-      S.dots = dots;
+      const cols=Math.ceil(s.w/GAP)+1, rows=Math.ceil(s.h/GAP)+1;
+      const ox=(s.w-(cols-1)*GAP)/2, oy=(s.h-(rows-1)*GAP)/2;
+      s.dots=[];
+      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){const bx=ox+c*GAP,by=oy+r*GAP;s.dots.push({bx,by,x:bx,y:by});}
     };
-
     const draw = () => {
-      ctx.clearRect(0,0,S.w,S.h);
-      const mx=S.mouse.x, my=S.mouse.y;
-      for (const d of S.dots) {
-        const dx=mx-d.bx, dy=my-d.by;
-        const dist=Math.hypot(dx,dy);
-        let tx=d.bx, ty=d.by, glow=0;
-        if (!reduce && dist<R) {
-          const f=1-dist/R; const pull=f*f*0.6;
-          tx=d.bx+dx*pull; ty=d.by+dy*pull; glow=f;
-        }
+      ctx.clearRect(0,0,s.w,s.h);
+      const mx=s.mouse.x,my=s.mouse.y;
+      for(const d of s.dots){
+        const dx=mx-d.bx,dy=my-d.by,dist=Math.hypot(dx,dy);
+        let tx=d.bx,ty=d.by,glow=0;
+        if(!reduce&&dist<R){const f=1-dist/R,pull=f*f*0.6;tx=d.bx+dx*pull;ty=d.by+dy*pull;glow=f;}
         d.x+=(tx-d.x)*0.15; d.y+=(ty-d.y)*0.15;
         const rad=1.3+glow*2.2;
         ctx.beginPath();
-        ctx.fillStyle = glow>0.02
-          ? "rgba("+accentRgb+","+(0.18+glow*0.55).toFixed(3)+")"
-          : "rgba("+inkRgb+",0.16)";
+        ctx.fillStyle=glow>0.02?`rgba(${accentRgb},${(0.18+glow*0.55).toFixed(3)})`:`rgba(${inkRgb},0.16)`;
         ctx.arc(d.x,d.y,rad,0,Math.PI*2); ctx.fill();
       }
-      S.raf = requestAnimationFrame(draw);
+      s.raf=requestAnimationFrame(draw);
     };
-
-    const onMove=(e)=>{S.mouse.x=e.clientX;S.mouse.y=e.clientY;};
-    const onLeave=()=>{S.mouse.x=-9999;S.mouse.y=-9999;};
-
+    const mv=(e)=>{s.mouse.x=e.clientX;s.mouse.y=e.clientY;};
+    const ml=()=>{s.mouse.x=-9999;s.mouse.y=-9999;};
     build(); draw();
-    window.addEventListener("resize",build);
-    window.addEventListener("mousemove",onMove);
-    window.addEventListener("mouseout",onLeave);
-    return () => {
-      cancelAnimationFrame(S.raf);
-      window.removeEventListener("resize",build);
-      window.removeEventListener("mousemove",onMove);
-      window.removeEventListener("mouseout",onLeave);
-    };
+    window.addEventListener("resize",build); window.addEventListener("mousemove",mv); window.addEventListener("mouseout",ml);
+    return()=>{cancelAnimationFrame(s.raf);window.removeEventListener("resize",build);window.removeEventListener("mousemove",mv);window.removeEventListener("mouseout",ml);};
   }, [active, inkRgb, accentRgb, reduce]);
-
   if (!active) return null;
-  return <canvas ref={canvasRef} style={{ position:"fixed", inset:0, zIndex:0, pointerEvents:"none" }} aria-hidden="true" />;
+  return <canvas ref={cvs} style={{position:"fixed",inset:0,zIndex:0,pointerEvents:"none"}} aria-hidden="true"/>;
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// HEADING FX (scramble / highlight / slide / split)
+// HEADING FX
 // ═══════════════════════════════════════════════════════════════════
 function FxHeading({ text, parts, fx, block }) {
   const segs = parts || [{ text }];
   const refs = React.useRef([]);
-  const rafRef = React.useRef(0);
-  React.useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
-
-  const runScramble = () => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&*<>/0123456789";
-    const total = segs.reduce((n,s) => n+s.text.length, 0);
-    const start = performance.now(), dur = Math.min(300+total*14, 900);
-    const tick = (t) => {
-      const p = Math.min((t-start)/dur, 1);
-      const reveal = p*total;
-      let base = 0;
-      segs.forEach((s,si) => {
-        let out = "";
-        for (let i=0; i<s.text.length; i++) {
-          const ch = s.text[i];
-          if (ch===" "||ch==="&"||ch===","||ch===".") { out+=ch; continue; }
-          out += (base+i)<reveal ? ch : chars[(Math.random()*chars.length)|0];
+  const raf = React.useRef(0);
+  React.useEffect(() => () => cancelAnimationFrame(raf.current), []);
+  const scramble = () => {
+    const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&*<>/0123456789";
+    const total=segs.reduce((n,s)=>n+s.text.length,0);
+    const start=performance.now(), dur=Math.min(300+total*14,900);
+    const tick=(t)=>{
+      const p=Math.min((t-start)/dur,1), reveal=p*total;
+      let base=0;
+      segs.forEach((s,si)=>{
+        let out="";
+        for(let i=0;i<s.text.length;i++){
+          const ch=s.text[i];
+          if(ch===" "||ch==="&"||ch===","||ch==="."){out+=ch;continue;}
+          out+=(base+i)<reveal?ch:chars[(Math.random()*chars.length)|0];
         }
-        const el = refs.current[si]; if (el) el.textContent = out;
-        base += s.text.length;
+        const el=refs.current[si]; if(el)el.textContent=out;
+        base+=s.text.length;
       });
-      if (p<1) rafRef.current = requestAnimationFrame(tick);
-      else segs.forEach((s,si) => { const el=refs.current[si]; if(el) el.textContent=s.text; });
+      if(p<1)raf.current=requestAnimationFrame(tick);
+      else segs.forEach((s,si)=>{const el=refs.current[si];if(el)el.textContent=s.text;});
     };
-    cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(tick);
+    cancelAnimationFrame(raf.current); raf.current=requestAnimationFrame(tick);
   };
-
-  const isScramble = fx === "Scramble";
-  const fxClass = isScramble ? "fx-scramble" : (fx && fx!=="None" ? "fx-"+fx.toLowerCase() : "");
-  const cls = "fx-heading" + (block ? " fx-heading-block" : "") + (fxClass ? " "+fxClass : "");
-  const inner = segs.map((s,si) => (
-    <span key={si} ref={(el)=>(refs.current[si]=el)} className={s.hl ? "c-hl" : undefined}>{s.text}</span>
-  ));
-  return <span className={cls} onMouseEnter={isScramble ? runScramble : undefined}>{inner}</span>;
+  const isScramble=fx==="Scramble";
+  const fxCls=isScramble?"fx-scramble":(fx&&fx!=="None"?"fx-"+fx.toLowerCase():"");
+  const cls="fx-heading"+(block?" fx-heading-block":"")+(fxCls?" "+fxCls:"");
+  return <span className={cls} onMouseEnter={isScramble?scramble:undefined}>{segs.map((s,si)=><span key={si} ref={el=>refs.current[si]=el} className={s.hl?"c-hl":undefined}>{s.text}</span>)}</span>;
 }
 
 // ═══════════════════════════════════════════════════════════════════
 // PARALLAX IMAGE
 // ═══════════════════════════════════════════════════════════════════
 function ParallaxImage({ src, alt, amount }) {
-  const wrapRef = React.useRef(null);
-  const imgRef = React.useRef(null);
-
-  React.useEffect(() => {
-    const wrap = wrapRef.current, img = imgRef.current;
-    if (!wrap || !img) return;
-    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce || !amount) { img.style.transform = "translate3d(0,0,0)"; return; }
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      const rect = wrap.getBoundingClientRect();
-      const span = Math.abs(img.offsetHeight - rect.height);
-      if (!span) { img.style.transform = "translate3d(0,0,0)"; return; }
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const progress = (vh-rect.top)/(vh+rect.height);
-      const clamped = Math.max(0,Math.min(1,progress));
-      const maxShift = (span/2)*0.9;
-      const shift = (clamped-0.5)*2*maxShift*amount;
-      img.style.transform = "translate3d(0,"+shift.toFixed(1)+"px,0)";
+  const wrapRef=React.useRef(null), imgRef=React.useRef(null);
+  React.useEffect(()=>{
+    const wrap=wrapRef.current,img=imgRef.current;
+    if(!wrap||!img)return;
+    const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+    if(reduce||!amount){img.style.transform="translate3d(0,0,0)";return;}
+    let ticking=false;
+    const update=()=>{
+      ticking=false;
+      const rect=wrap.getBoundingClientRect();
+      const span=Math.abs(img.offsetHeight-rect.height);
+      if(!span){img.style.transform="translate3d(0,0,0)";return;}
+      const vh=window.innerHeight;
+      const p=(vh-rect.top)/(vh+rect.height);
+      const c=Math.max(0,Math.min(1,p));
+      const shift=(c-0.5)*2*(span/2)*0.9*amount;
+      img.style.transform=`translate3d(0,${shift.toFixed(1)}px,0)`;
     };
-    const onScroll = () => { if(!ticking){window.requestAnimationFrame(update);ticking=true;} };
+    const onScroll=()=>{if(!ticking){requestAnimationFrame(update);ticking=true;}};
     window.addEventListener("scroll",onScroll,{passive:true});
     window.addEventListener("resize",update);
-    if (!img.complete) img.addEventListener("load",update);
+    if(!img.complete)img.addEventListener("load",update);
     update();
-    return () => {
-      window.removeEventListener("scroll",onScroll);
-      window.removeEventListener("resize",update);
-      img.removeEventListener("load",update);
-    };
-  }, [amount, src]);
-
+    return()=>{window.removeEventListener("scroll",onScroll);window.removeEventListener("resize",update);img.removeEventListener("load",update);};
+  },[amount,src]);
   return (
-    <div ref={wrapRef} style={{ position:"absolute", inset:0, overflow:"hidden", background:"#231431" }}>
-      <div style={{ position:"absolute", inset:"-6%", backgroundImage:"url('"+src+"')", backgroundSize:"cover", backgroundPosition:"center", filter:"blur(28px) brightness(0.8) saturate(1.05)", transform:"scale(1.08)" }} />
-      <img ref={imgRef} src={src} alt={alt} style={{ position:"absolute", left:0, top:"50%", translate:"0 -50%", width:"100%", height:"auto", display:"block", willChange:"transform", transform:"translate3d(0,0,0)", boxShadow:"0 24px 60px rgba(0,0,0,0.32)" }} />
+    <div ref={wrapRef} style={{position:"absolute",inset:0,overflow:"hidden",background:"#231431"}}>
+      <div style={{position:"absolute",inset:"-6%",backgroundImage:`url('${src}')`,backgroundSize:"cover",backgroundPosition:"center",filter:"blur(28px) brightness(0.8) saturate(1.05)",transform:"scale(1.08)"}}/>
+      <img ref={imgRef} src={src} alt={alt} style={{position:"absolute",left:0,top:"50%",translate:"0 -50%",width:"100%",height:"auto",display:"block",willChange:"transform",transform:"translate3d(0,0,0)",boxShadow:"0 24px 60px rgba(0,0,0,0.32)"}}/>
     </div>
   );
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// POEMS — STICKY HORIZONTAL SCROLL
+// POEMS HORIZONTAL SCROLL
 // ═══════════════════════════════════════════════════════════════════
 function CPoemsHorizontal() {
-  const D = PORTFOLIO_DATA;
-  const wrapRef = React.useRef(null);
-  const trackRef = React.useRef(null);
-  const fillRef = React.useRef(null);
-  const countRef = React.useRef(null);
+  const { content, em, up } = React.useContext(EditCtx);
+  const wrapRef=React.useRef(null), trackRef=React.useRef(null), fillRef=React.useRef(null), countRef=React.useRef(null);
   const [wrapH, setWrapH] = React.useState("200vh");
-
-  React.useEffect(() => {
-    let dist = 0, raf = 0;
-    const measure = () => {
-      const track = trackRef.current; if (!track) return;
-      dist = Math.max(track.scrollWidth - document.documentElement.clientWidth, 0);
-      setWrapH(window.innerHeight + dist + "px");
-      apply();
+  React.useEffect(()=>{
+    let dist=0,raf=0;
+    const measure=()=>{
+      const track=trackRef.current;if(!track)return;
+      dist=Math.max(track.scrollWidth-document.documentElement.clientWidth,0);
+      setWrapH(window.innerHeight+dist+"px"); apply();
     };
-    const apply = () => {
-      const wrap = wrapRef.current, track = trackRef.current;
-      if (!wrap||!track||dist<=0) return;
-      const top = wrap.getBoundingClientRect().top + window.scrollY;
-      const total = wrap.offsetHeight - window.innerHeight;
-      const p = total>0 ? Math.min(Math.max((window.scrollY-top)/total,0),1) : 0;
-      track.style.transform = `translate3d(${-p*dist}px,0,0)`;
-      if (fillRef.current) fillRef.current.style.width = (p*100).toFixed(2)+"%";
-      if (countRef.current) {
-        const n=4, i=Math.min(n,Math.floor(p*n)+1);
-        countRef.current.textContent = "0"+i+" / 0"+n;
-      }
+    const apply=()=>{
+      const wrap=wrapRef.current,track=trackRef.current;
+      if(!wrap||!track||dist<=0)return;
+      const top=wrap.getBoundingClientRect().top+window.scrollY;
+      const total=wrap.offsetHeight-window.innerHeight;
+      const p=total>0?Math.min(Math.max((window.scrollY-top)/total,0),1):0;
+      track.style.transform=`translate3d(${-p*dist}px,0,0)`;
+      if(fillRef.current)fillRef.current.style.width=(p*100).toFixed(2)+"%";
+      if(countRef.current){const n=4,i=Math.min(n,Math.floor(p*n)+1);countRef.current.textContent="0"+i+" / 0"+n;}
     };
-    const onScroll = () => { cancelAnimationFrame(raf); raf=requestAnimationFrame(apply); };
+    const onScroll=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(apply);};
     measure();
-    window.addEventListener("resize",measure);
-    window.addEventListener("scroll",onScroll,{passive:true});
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize",measure); window.removeEventListener("scroll",onScroll); };
-  }, []);
+    window.addEventListener("resize",measure); window.addEventListener("scroll",onScroll,{passive:true});
+    return()=>{cancelAnimationFrame(raf);window.removeEventListener("resize",measure);window.removeEventListener("scroll",onScroll);};
+  },[]);
 
+  const p = content.poems;
   return (
-    <section id="poems" ref={wrapRef} style={{ position:"relative", marginTop:100, height:wrapH }}>
-      <div style={{ position:"sticky", top:0, height:"100vh", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-        {/* Header */}
-        <div style={{ display:"flex", alignItems:"baseline", justifyContent:"space-between", padding:"96px 80px 0", flex:"0 0 auto" }}>
-          <span style={{ fontSize:15, fontWeight:600, letterSpacing:"0.02em" }}>Poems, occasionally</span>
-          <span className="mono cobalt" style={{ fontSize:12 }}>scroll ↓ = →</span>
+    <section id="poems" ref={wrapRef} style={{position:"relative",marginTop:100,height:wrapH}}>
+      <div style={{position:"sticky",top:0,height:"100vh",overflow:"hidden",display:"flex",flexDirection:"column"}}>
+        <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",padding:"96px 80px 0",flex:"0 0 auto"}}>
+          <E v={content.poemsHeading} tag="span" path={['poemsHeading']} st={{fontSize:15,fontWeight:600,letterSpacing:"0.02em"}}/>
+          <span className="mono cobalt" style={{fontSize:12}}>scroll ↓ = →</span>
         </div>
-        {/* Track */}
-        <div style={{ flex:1, display:"flex", alignItems:"center", minHeight:0 }}>
-          <div ref={trackRef} style={{ display:"flex", alignItems:"stretch", gap:32, padding:"0 80px", willChange:"transform" }}>
-            {/* English poem */}
+        <div style={{flex:1,display:"flex",alignItems:"center",minHeight:0}}>
+          <div ref={trackRef} style={{display:"flex",alignItems:"stretch",gap:32,padding:"0 80px",willChange:"transform"}}>
+            {/* EN poem */}
             <div className="c-hpoem" data-tag="EN — POEM">
-              <h4 className="pt">{D.poems.en.title}</h4>
-              <div className="pl">{D.poems.en.lines.join("\n")}</div>
-              <div className="c-note mono">{D.poems.note}</div>
+              <E v={p.en.title} tag="h4" path={['poems','en','title']} cn="pt"/>
+              <E v={p.en.text} tag="div" multi path={['poems','en','text']} cn="pl" st={{whiteSpace:"pre-line"}}/>
+              <div className="c-note mono">{p.note}</div>
             </div>
-            {/* Hebrew poem */}
+            {/* HE poem */}
             <div className="c-hpoem" data-tag="HE — שיר">
-              <h4 className="pt rtl">{D.poems.he.title}</h4>
-              <div className="pl rtl">{D.poems.he.lines.join("\n")}</div>
-              <div className="c-note mono">{D.poems.note}</div>
+              <E v={p.he.title} tag="h4" path={['poems','he','title']} cn="pt rtl"/>
+              <E v={p.he.text} tag="div" multi path={['poems','he','text']} cn="pl rtl" st={{whiteSpace:"pre-line",direction:"rtl",textAlign:"right",fontFamily:"'Noto Sans Hebrew',sans-serif"}}/>
+              <div className="c-note mono">{p.note}</div>
             </div>
             {/* Slots */}
-            <div className="c-hslot mono"><span className="n">[ poem 03 ]</span><span>open slot — drop a poem here</span></div>
-            <div className="c-hslot mono"><span className="n">[ poem 04 ]</span><span>open slot — he or en</span></div>
-            {/* End card */}
-            <div style={{ flex:"0 0 auto", display:"flex", alignItems:"center", paddingRight:80 }}>
-              <div style={{ fontSize:64, fontWeight:600, letterSpacing:"-0.03em", lineHeight:1.05, maxWidth:"9ch", color:"rgba(var(--ink-rgb),0.9)" }}>
+            <div className="c-hslot mono">
+              <span className="n">[ poem 03 ]</span>
+              <E v={p.slots[0]} tag="span" path={['poems','slots',0]}/>
+            </div>
+            <div className="c-hslot mono">
+              <span className="n">[ poem 04 ]</span>
+              <E v={p.slots[1]} tag="span" path={['poems','slots',1]}/>
+            </div>
+            {/* End */}
+            <div style={{flex:"0 0 auto",display:"flex",alignItems:"center",paddingRight:80}}>
+              <div style={{fontSize:64,fontWeight:600,letterSpacing:"-0.03em",lineHeight:1.05,maxWidth:"9ch",color:"rgba(var(--ink-rgb),0.9)"}}>
                 Back to <span className="cobalt">scrolling down</span>. ↓
               </div>
             </div>
           </div>
         </div>
-        {/* Progress footer */}
-        <div style={{ flex:"0 0 auto", padding:"0 80px 40px" }}>
-          <div style={{ height:2, background:"rgba(var(--ink-rgb),0.15)", position:"relative" }}>
-            <div ref={fillRef} style={{ position:"absolute", left:0, top:0, bottom:0, width:"0%", background:"var(--accent)", transition:"width 0.05s linear" }} />
+        <div style={{flex:"0 0 auto",padding:"0 80px 40px"}}>
+          <div style={{height:2,background:"rgba(var(--ink-rgb),0.15)",position:"relative"}}>
+            <div ref={fillRef} style={{position:"absolute",left:0,top:0,bottom:0,width:"0%",background:"var(--accent)"}}/>
           </div>
-          <div className="mono" style={{ display:"flex", justifyContent:"space-between", marginTop:12, fontSize:11, color:"rgba(var(--ink-rgb),0.5)" }}>
-            <span ref={countRef}>01 / 04</span>
-            <span>(he + en)</span>
+          <div className="mono" style={{display:"flex",justifyContent:"space-between",marginTop:12,fontSize:11,color:"rgba(var(--ink-rgb),0.5)"}}>
+            <span ref={countRef}>01 / 04</span><span>(he + en)</span>
           </div>
         </div>
       </div>
@@ -929,27 +863,32 @@ function CPoemsHorizontal() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// PROJECT VIEWS
+// PROJECT GRID
 // ═══════════════════════════════════════════════════════════════════
 function CProjectsGrid({ headingFx }) {
-  const D = PORTFOLIO_DATA;
+  const { content, em, up } = React.useContext(EditCtx);
   return (
-    <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:28, padding:"0 80px" }}>
-      {D.projects.map((p) => (
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:28,padding:"0 80px"}}>
+      {content.projects.map((p,pi) => (
         <article key={p.num} className="c-card">
-          {p.image
-            ? <img src={p.image} alt={p.title} style={{ width:"100%", height:220, objectFit:"cover", display:"block", borderBottom:"1px solid rgba(var(--ink-rgb),0.25)" }} />
-            : <image-slot id={"c-card-"+p.num} shape="rect" fit="cover" placeholder={"Drop image — "+p.title} style={{ display:"block", width:"100%", height:"220px", borderBottom:"1px solid rgba(var(--ink-rgb),0.25)" }} />}
-          <div style={{ padding:"24px 26px 28px" }}>
-            <div style={{ display:"flex", alignItems:"baseline", justifyContent:"space-between", gap:14 }}>
-              <h3 style={{ fontSize:30, margin:0, fontWeight:600, letterSpacing:"-0.02em" }}>
-                <FxHeading text={p.title} fx={headingFx} />
+          <div style={{position:"relative",width:"100%",height:220}}>
+            {p.image
+              ? <img src={p.image} alt={p.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+              : <image-slot id={"c-card-"+p.num} shape="rect" fit="cover" placeholder={"Drop image — "+p.title} style={{display:"block",width:"100%",height:"100%"}}/>}
+            <ReplaceImgBtn path={['projects',pi,'image']}/>
+          </div>
+          <div style={{padding:"24px 26px 28px"}}>
+            <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",gap:14}}>
+              <h3 style={{fontSize:30,margin:0,fontWeight:600,letterSpacing:"-0.02em"}}>
+                {em ? <E v={p.title} tag="span" path={['projects',pi,'title']}/> : <FxHeading text={p.title} fx={headingFx}/>}
               </h3>
-              <span className="mono" style={{ fontSize:12, color:"var(--accent)" }}>{p.num}</span>
+              <span className="mono" style={{fontSize:12,color:"var(--accent)"}}>{p.num}</span>
             </div>
-            <div className="mono" style={{ fontSize:11, letterSpacing:"0.12em", textTransform:"uppercase", color:"rgba(var(--ink-rgb),0.55)", margin:"8px 0 14px" }}>{p.meta}</div>
-            <p style={{ fontSize:14, lineHeight:1.65, margin:"0 0 18px", color:"rgba(var(--ink-rgb),0.85)" }}>{p.desc}</p>
-            <div className="c-tags mono">{p.tags.map((t) => <span key={t} className="c-tag">{t}</span>)}</div>
+            <E v={p.meta} tag="div" path={['projects',pi,'meta']} cn="mono" st={{fontSize:11,letterSpacing:"0.12em",textTransform:"uppercase",color:"rgba(var(--ink-rgb),0.55)",margin:"8px 0 14px"}}/>
+            <E v={p.desc} tag="p" multi path={['projects',pi,'desc']} st={{fontSize:14,lineHeight:1.65,margin:"0 0 18px",color:"rgba(var(--ink-rgb),0.85)"}}/>
+            <div className="c-tags mono">
+              {p.tags.map((t,ti)=><E key={ti} v={t} tag="span" path={['projects',pi,'tags',ti]} cn="c-tag"/>)}
+            </div>
           </div>
         </article>
       ))}
@@ -957,49 +896,72 @@ function CProjectsGrid({ headingFx }) {
   );
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// PROJECT SPREADS
+// ═══════════════════════════════════════════════════════════════════
 function CProjectsSpread({ alternate=true, headingFx, parallax=0 }) {
-  const D = PORTFOLIO_DATA;
+  const { content, em, up } = React.useContext(EditCtx);
   return (
-    <div style={{ borderTop:"1px solid rgba(var(--ink-rgb),0.4)" }}>
-      {D.projects.map((p,i) => (
-        <article key={p.num} className={"c-spread"+(alternate&&i%2===1?" flip":"")}>
+    <div style={{borderTop:"1px solid rgba(var(--ink-rgb),0.15)"}}>
+      {content.projects.map((p,pi) => (
+        <article key={p.num} className={"c-spread"+(alternate&&pi%2===1?" flip":"")}>
           <div className="imgside">
             {p.image
-              ? <ParallaxImage src={p.image} alt={p.title} amount={parallax} />
-              : <image-slot id={"c-spread-"+p.num} shape="rect" fit="cover" placeholder={"Drop image — "+p.title} style={{ position:"absolute", inset:0, width:"100%", height:"100%" }} />}
+              ? <ParallaxImage src={p.image} alt={p.title} amount={parallax}/>
+              : <image-slot id={"c-spread-"+p.num} shape="rect" fit="cover" placeholder={"Drop image — "+p.title} style={{position:"absolute",inset:0,width:"100%",height:"100%"}}/>}
+            <ReplaceImgBtn path={['projects',pi,'image']}/>
           </div>
           <div className="txtside">
-            <div className="mono" style={{ display:"flex", alignItems:"baseline", justifyContent:"space-between", gap:20, marginBottom:26 }}>
-              <span style={{ fontSize:13, color:"var(--accent)" }}>({p.num} / 07)</span>
-              <span style={{ fontSize:11, letterSpacing:"0.14em", textTransform:"uppercase", color:"rgba(var(--ink-rgb),0.55)" }}>{p.meta}</span>
+            <div className="mono" style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",gap:20,marginBottom:26}}>
+              <span style={{fontSize:13,color:"var(--accent)"}}>({p.num} / 07)</span>
+              <E v={p.meta} tag="span" path={['projects',pi,'meta']} st={{fontSize:11,letterSpacing:"0.14em",textTransform:"uppercase",color:"rgba(var(--ink-rgb),0.55)"}}/>
             </div>
-            <h3 style={{ fontSize:"clamp(44px, 4.4vw, 64px)", lineHeight:1.0, letterSpacing:"-0.03em", margin:"0 0 28px", fontWeight:600 }}>
-              <FxHeading text={p.title} fx={headingFx} />
+            <h3 style={{fontSize:"clamp(44px,4.4vw,64px)",lineHeight:1.0,letterSpacing:"-0.03em",margin:"0 0 28px",fontWeight:600}}>
+              {em ? <E v={p.title} tag="span" path={['projects',pi,'title']}/> : <FxHeading text={p.title} fx={headingFx}/>}
             </h3>
-            <p style={{ fontSize:16.5, lineHeight:1.75, margin:"0 0 30px", maxWidth:"46ch", color:"rgba(var(--ink-rgb),0.88)" }}>{p.desc}</p>
-            <div className="c-tags mono">{p.tags.map((t) => <span key={t} className="c-tag">{t}</span>)}</div>
+            <E v={p.desc} tag="p" multi path={['projects',pi,'desc']} st={{fontSize:16.5,lineHeight:1.75,margin:"0 0 30px",maxWidth:"46ch",color:"rgba(var(--ink-rgb),0.88)"}}/>
+            <div className="c-tags mono">
+              {p.tags.map((t,ti)=><E key={ti} v={t} tag="span" path={['projects',pi,'tags',ti]} cn="c-tag"/>)}
+            </div>
           </div>
         </article>
       ))}
     </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SAVE TOAST
+// ═══════════════════════════════════════════════════════════════════
+function SaveToast({ show }) {
+  return (
+    <div style={{
+      position:"fixed", top:72, left:"50%", transform:"translateX(-50%)",
+      background:"rgba(30,32,38,.95)", color:"#e8e8e4", padding:"7px 18px",
+      borderRadius:999, fontSize:12, fontWeight:600, fontFamily:"'IBM Plex Mono',monospace",
+      letterSpacing:"0.04em", zIndex:9998, pointerEvents:"none",
+      boxShadow:"0 4px 16px rgba(0,0,0,.4)",
+      opacity: show ? 1 : 0, transform: `translateX(-50%) translateY(${show?0:'-8px'})`,
+      transition: "opacity .2s, transform .2s",
+    }}>✓ saved</div>
   );
 }
 
 // ═══════════════════════════════════════════════════════════════════
 // CSS
 // ═══════════════════════════════════════════════════════════════════
-const dirCLiveCSS = `
+const CSS = `
 html, body { overflow-x: clip; }
 .dirC {
   --bg:#141519; --ink:#E8E8E4; --ink-rgb:232,232,228;
   --accent:#7184FF; --accent-rgb:113,132,255; --accent-bright:#97A4FF;
   --surface:#1E2026; --invert-bg:#E8E8E4; --invert-text:#141519; --invert-rgb:20,21,25;
   --tex-image:none; --tex-size:auto;
-  background:var(--bg); color:var(--ink); font-family:'Archivo', sans-serif;
-  position:relative; transition:background .35s ease, color .35s ease;
+  background:var(--bg); color:var(--ink); font-family:'Archivo',sans-serif;
+  position:relative; transition:background .35s, color .35s;
 }
 .dirC * { box-sizing:border-box; }
-.dirC .mono { font-family:'IBM Plex Mono', monospace; }
+.dirC .mono { font-family:'IBM Plex Mono',monospace; }
 .dirC .cobalt { color:var(--accent); }
 .dirC .c-hl { box-shadow:inset 0 -0.38em rgba(var(--accent-rgb),0.28); }
 
@@ -1008,214 +970,250 @@ html, body { overflow-x: clip; }
 .dirC .fx-heading-block { display:inline; }
 .dirC .fx-heading-block.fx-highlight { -webkit-box-decoration-break:clone; box-decoration-break:clone; }
 .dirC .fx-heading-block.fx-slide::after { display:none; }
-.dirC .fx-highlight {
-  background-image:linear-gradient(rgba(var(--accent-rgb),0.30), rgba(var(--accent-rgb),0.30));
-  background-repeat:no-repeat; background-position:left 88%; background-size:0% 0.34em;
-  transition:background-size .45s cubic-bezier(.2,.8,.2,1);
-}
-.dirC .fx-highlight:hover { background-size:100% 0.34em; }
-.dirC .fx-slide { transition:transform .35s cubic-bezier(.2,.8,.2,1), color .35s ease; }
-.dirC .fx-slide::after { content:'→'; display:inline-block; opacity:0; margin-left:0; color:var(--accent); transition:opacity .35s ease, margin-left .35s ease; }
-.dirC .fx-slide:hover { transform:translateX(0.1em); color:var(--accent); }
-.dirC .fx-slide:hover::after { opacity:1; margin-left:0.28em; }
-.dirC .fx-split { transition:text-shadow .25s ease, letter-spacing .25s ease; }
-.dirC .fx-split:hover { letter-spacing:0.01em; text-shadow:0.035em 0 var(--accent), -0.035em 0 var(--accent-bright); }
+.dirC .fx-highlight { background-image:linear-gradient(rgba(var(--accent-rgb),.3),rgba(var(--accent-rgb),.3)); background-repeat:no-repeat; background-position:left 88%; background-size:0% .34em; transition:background-size .45s cubic-bezier(.2,.8,.2,1); }
+.dirC .fx-highlight:hover { background-size:100% .34em; }
+.dirC .fx-slide { transition:transform .35s cubic-bezier(.2,.8,.2,1),color .35s; }
+.dirC .fx-slide::after { content:'→'; display:inline-block; opacity:0; margin-left:0; color:var(--accent); transition:opacity .35s,margin-left .35s; }
+.dirC .fx-slide:hover { transform:translateX(.1em); color:var(--accent); }
+.dirC .fx-slide:hover::after { opacity:1; margin-left:.28em; }
+.dirC .fx-split { transition:text-shadow .25s,letter-spacing .25s; }
+.dirC .fx-split:hover { letter-spacing:.01em; text-shadow:.035em 0 var(--accent),-.035em 0 var(--accent-bright); }
 .dirC .fx-scramble { font-variant-ligatures:none; }
 
-/* Nav */
-.dirC .c-topbar {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:22px 80px; border-bottom:1px solid rgba(var(--ink-rgb),0.18);
-  font-size:13px; position:sticky; top:0;
-  background:rgba(var(--bg-rgb, 20,21,25),.92);
-  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
-  z-index:20;
+/* Edit mode field */
+.dirC .ed-f {
+  outline: 1.5px dashed rgba(var(--accent-rgb),.5);
+  border-radius: 3px;
+  cursor: text;
+  min-width: 2em;
+  transition: outline-color .15s, background .15s;
 }
+.dirC .ed-f:hover { outline-color: rgba(var(--accent-rgb),.85); background: rgba(var(--accent-rgb),.06); }
+.dirC .ed-f:focus { outline: 2px solid var(--accent); background: rgba(var(--accent-rgb),.09); outline-offset: 1px; }
+/* Edit mode top indicator */
+.dirC .ed-bar {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--accent); z-index: 9990; pointer-events: none;
+}
+/* Image replace overlay */
+.dirC .img-replace {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.45); cursor: pointer; opacity: 0; transition: opacity .2s; z-index: 2;
+}
+.dirC .img-replace:hover { opacity: 1; }
+.dirC .img-replace span {
+  color: #fff; font-size: 13px; font-weight: 600; background: rgba(0,0,0,.55);
+  padding: 10px 22px; border-radius: 8px; font-family: 'IBM Plex Mono',monospace;
+  letter-spacing: .04em; pointer-events: none;
+}
+
+/* Top bar */
+.dirC .c-topbar { display:flex; align-items:center; justify-content:space-between; padding:22px 80px; border-bottom:1px solid rgba(var(--ink-rgb),.18); font-size:13px; position:sticky; top:0; background:rgba(var(--bg-rgb,20,21,25),.92); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); z-index:20; gap:24px; }
 .dirC .c-topbar nav { display:flex; gap:32px; }
-.dirC .c-topbar a { color:inherit; text-decoration:none; opacity:.7; transition:opacity .2s, color .2s; }
+.dirC .c-topbar a { color:inherit; text-decoration:none; opacity:.7; transition:opacity .2s,color .2s; }
 .dirC .c-topbar a:hover { opacity:1; color:var(--accent); }
-.dirC .c-logo { font-weight:700; letter-spacing:-0.01em; font-size:15px; }
-.dirC .c-avail { display:flex; align-items:center; gap:8px; font-size:11.5px; }
-.dirC .c-avail .dot { width:8px; height:8px; border-radius:50%; background:var(--accent); animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+.dirC .c-logo { font-weight:700; letter-spacing:-.01em; font-size:15px; white-space:nowrap; }
+.dirC .c-avail { display:flex; align-items:center; gap:8px; font-size:11.5px; white-space:nowrap; }
+.dirC .c-avail .dot { width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.dirC .ed-toggle {
+  appearance:none; border:none; border-radius:8px; padding:7px 14px;
+  font:12px/1.4 'IBM Plex Mono',monospace; font-weight:600; cursor:pointer;
+  letter-spacing:.04em; transition:background .2s,color .2s; white-space:nowrap;
+  flex-shrink:0;
+}
+.dirC .ed-toggle.off { background:rgba(var(--ink-rgb),.1); color:rgba(var(--ink-rgb),.7); }
+.dirC .ed-toggle.off:hover { background:rgba(var(--ink-rgb),.18); color:var(--ink); }
+.dirC .ed-toggle.on { background:var(--accent); color:#fff; }
 
 /* Hero */
-.dirC .c-hero {
-  padding:100px 80px 84px; position:relative;
-  background-image:var(--tex-image); background-size:var(--tex-size);
-}
-.dirC .c-kicker { font-size:12px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:28px; opacity:.6; }
-.dirC .c-hero h1 { font-size:clamp(64px, 7vw, 104px); line-height:0.98; letter-spacing:-0.035em; margin:0 0 40px; font-weight:600; max-width:12ch; }
+.dirC .c-hero { padding:100px 80px 84px; position:relative; background-image:var(--tex-image); background-size:var(--tex-size); }
+.dirC .c-kicker { font-size:12px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:28px; opacity:.6; }
+.dirC .c-hero h1 { font-size:clamp(64px,7vw,104px); line-height:.98; letter-spacing:-.035em; margin:0 0 40px; font-weight:600; max-width:12ch; }
 .dirC .c-hero .sub { display:grid; grid-template-columns:1.2fr 1fr; gap:56px; align-items:end; }
 .dirC .c-hero p { font-size:16px; line-height:1.7; margin:0; max-width:54ch; opacity:.8; }
 .dirC .c-stickers { display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
-.dirC .c-sticker { background:rgba(var(--ink-rgb),.07); border:1px solid rgba(var(--ink-rgb),0.18); border-radius:999px; padding:9px 18px; font-size:12.5px; }
-.dirC .c-sticker:nth-child(1){transform:rotate(-2deg);} .dirC .c-sticker:nth-child(2){transform:rotate(1.5deg);}
-.dirC .c-sticker:nth-child(3){transform:rotate(-1deg);} .dirC .c-sticker:nth-child(4){transform:rotate(2deg);}
+.dirC .c-sticker { background:rgba(var(--ink-rgb),.07); border:1px solid rgba(var(--ink-rgb),.18); border-radius:999px; padding:9px 18px; font-size:12.5px; }
+.dirC .c-sticker:nth-child(1){transform:rotate(-2deg)} .dirC .c-sticker:nth-child(2){transform:rotate(1.5deg)}
+.dirC .c-sticker:nth-child(3){transform:rotate(-1deg)} .dirC .c-sticker:nth-child(4){transform:rotate(2deg)}
 .dirC .c-sticker.blue { background:var(--accent); color:#fff; border-color:var(--accent); }
 
-/* Section headings */
+/* Section heads */
 .dirC .c-secthead { display:flex; align-items:baseline; justify-content:space-between; padding:0 80px; margin:92px 0 44px; }
-.dirC .c-secthead .t { font-size:15px; font-weight:600; letter-spacing:0.02em; }
+.dirC .c-secthead .t { font-size:15px; font-weight:600; letter-spacing:.02em; }
 .dirC .c-secthead .n { font-size:12px; }
 
 /* Cards */
-.dirC .c-card { background:var(--surface); border:1px solid rgba(var(--ink-rgb),0.15); border-radius:6px; overflow:hidden; transition:transform .25s ease, box-shadow .25s ease; }
-.dirC .c-card:hover { transform:translateY(-5px); box-shadow:0 16px 32px rgba(0,0,0,0.25); }
+.dirC .c-card { background:var(--surface); border:1px solid rgba(var(--ink-rgb),.15); border-radius:6px; overflow:hidden; transition:transform .25s,box-shadow .25s; }
+.dirC .c-card:hover { transform:translateY(-5px); box-shadow:0 16px 32px rgba(0,0,0,.25); }
 .dirC .c-tags { display:flex; flex-wrap:wrap; gap:8px; }
-.dirC .c-tag { font-size:11.5px; background:rgba(var(--ink-rgb),.07); border:1px solid rgba(var(--ink-rgb),0.15); padding:5px 12px; border-radius:999px; }
+.dirC .c-tag { font-size:11.5px; background:rgba(var(--ink-rgb),.07); border:1px solid rgba(var(--ink-rgb),.15); padding:5px 12px; border-radius:999px; }
 
 /* Spreads */
-.dirC .c-spread { display:grid; grid-template-columns:1.05fr 1fr; min-height:84vh; border-bottom:1px solid rgba(var(--ink-rgb),0.15); background:var(--surface); }
-.dirC .c-spread .imgside { position:relative; border-right:1px solid rgba(var(--ink-rgb),0.12); display:flex; }
-.dirC .c-spread.flip .imgside { order:2; border-right:none; border-left:1px solid rgba(var(--ink-rgb),0.12); }
+.dirC .c-spread { display:grid; grid-template-columns:1.05fr 1fr; min-height:84vh; border-bottom:1px solid rgba(var(--ink-rgb),.15); background:var(--surface); }
+.dirC .c-spread .imgside { position:relative; border-right:1px solid rgba(var(--ink-rgb),.12); display:flex; }
+.dirC .c-spread.flip .imgside { order:2; border-right:none; border-left:1px solid rgba(var(--ink-rgb),.12); }
 .dirC .c-spread .txtside { display:flex; flex-direction:column; justify-content:center; padding:96px 80px; background-image:var(--tex-image); background-size:var(--tex-size); }
 
-/* Open slots */
+/* Slots */
 .dirC .c-slots { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding:28px 80px 0; }
-.dirC .c-slot { border:1.5px dashed rgba(var(--accent-rgb),0.35); border-radius:6px; padding:18px; font-size:12.5px; line-height:1.6; color:rgba(var(--ink-rgb),0.45); }
+.dirC .c-slot { border:1.5px dashed rgba(var(--accent-rgb),.35); border-radius:6px; padding:18px; font-size:12.5px; line-height:1.6; color:rgba(var(--ink-rgb),.45); }
 .dirC .c-slot .n { color:var(--accent); display:block; margin-bottom:6px; }
 
 /* About */
-.dirC .c-about { margin:100px 80px 0; display:grid; grid-template-columns:1fr 1.1fr; border:1px solid rgba(var(--ink-rgb),0.15); border-radius:6px; overflow:hidden; background:var(--surface); }
-.dirC .c-about .left { padding:54px 56px; border-right:1px solid rgba(var(--ink-rgb),0.12); }
-.dirC .c-about h2 { font-size:48px; letter-spacing:-0.03em; margin:0 0 24px; font-weight:600; }
+.dirC .c-about { margin:100px 80px 0; display:grid; grid-template-columns:1fr 1.1fr; border:1px solid rgba(var(--ink-rgb),.15); border-radius:6px; overflow:hidden; background:var(--surface); }
+.dirC .c-about .left { padding:54px 56px; border-right:1px solid rgba(var(--ink-rgb),.12); }
+.dirC .c-about h2 { font-size:48px; letter-spacing:-.03em; margin:0 0 24px; font-weight:600; }
 .dirC .c-about p { font-size:15px; line-height:1.75; margin:0 0 16px; opacity:.85; }
 .dirC .c-about .right { padding:54px 56px; background:var(--invert-bg); color:var(--invert-text); display:flex; flex-direction:column; justify-content:center; }
-.dirC .c-fact { display:flex; justify-content:space-between; gap:18px; padding:14px 0; font-size:13.5px; border-bottom:1px solid rgba(var(--invert-rgb),0.12); }
+.dirC .c-fact { display:flex; justify-content:space-between; gap:18px; padding:14px 0; font-size:13.5px; border-bottom:1px solid rgba(var(--invert-rgb),.12); }
 .dirC .c-fact:last-child { border-bottom:none; }
-.dirC .c-fact .k { color:rgba(var(--invert-rgb),0.45); }
+.dirC .c-fact .k { color:rgba(var(--invert-rgb),.45); }
 
-/* Poem cards */
-.dirC .c-hpoem { flex:0 0 540px; background:var(--surface); border:1px solid rgba(var(--ink-rgb),0.15); border-radius:6px; padding:46px 48px 38px; position:relative; display:flex; flex-direction:column; min-height:380px; max-height:62vh; }
-.dirC .c-hpoem::before { content:attr(data-tag); position:absolute; top:-11px; left:26px; background:var(--accent); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.18em; padding:4px 10px; border-radius:999px; transform:rotate(-1.5deg); }
-.dirC .c-hpoem .pt { font-size:24px; font-weight:600; margin:0 0 20px; letter-spacing:-0.01em; }
+/* Poems */
+.dirC .c-hpoem { flex:0 0 540px; background:var(--surface); border:1px solid rgba(var(--ink-rgb),.15); border-radius:6px; padding:46px 48px 38px; position:relative; display:flex; flex-direction:column; min-height:380px; max-height:62vh; }
+.dirC .c-hpoem::before { content:attr(data-tag); position:absolute; top:-11px; left:26px; background:var(--accent); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; padding:4px 10px; border-radius:999px; transform:rotate(-1.5deg); }
+.dirC .c-hpoem .pt { font-size:24px; font-weight:600; margin:0 0 20px; letter-spacing:-.01em; }
 .dirC .c-hpoem .pl { font-size:15px; line-height:2.05; white-space:pre-line; flex:1; opacity:.85; }
-.dirC .c-hpoem .rtl { direction:rtl; text-align:right; font-family:'Noto Sans Hebrew',sans-serif; }
-.dirC .c-note { font-size:11px; color:rgba(var(--ink-rgb),0.35); margin-top:20px; }
-.dirC .c-hslot { flex:0 0 420px; border:1.5px dashed rgba(var(--accent-rgb),0.35); border-radius:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; font-size:12.5px; color:rgba(var(--ink-rgb),0.45); min-height:380px; max-height:62vh; text-align:center; padding:30px; }
+.dirC .c-note { font-size:11px; color:rgba(var(--ink-rgb),.35); margin-top:20px; }
+.dirC .c-hslot { flex:0 0 420px; border:1.5px dashed rgba(var(--accent-rgb),.35); border-radius:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; font-size:12.5px; color:rgba(var(--ink-rgb),.45); min-height:380px; max-height:62vh; text-align:center; padding:30px; }
 .dirC .c-hslot .n { color:var(--accent); }
 
-/* Photos strip */
+/* Photos */
 .dirC .c-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:0 80px; }
-.dirC .c-shot { background:var(--surface); border:1px solid rgba(var(--ink-rgb),0.12); border-radius:6px; padding:10px 10px 14px; }
-.dirC .c-shot:nth-child(even){transform:rotate(0.8deg);} .dirC .c-shot:nth-child(odd){transform:rotate(-0.7deg);}
-.dirC .c-shot .cap { font-size:11px; margin-top:10px; color:rgba(var(--ink-rgb),0.4); }
+.dirC .c-shot { background:var(--surface); border:1px solid rgba(var(--ink-rgb),.12); border-radius:6px; padding:10px 10px 14px; }
+.dirC .c-shot:nth-child(even){transform:rotate(.8deg)} .dirC .c-shot:nth-child(odd){transform:rotate(-.7deg)}
+.dirC .c-shot .cap { font-size:11px; margin-top:10px; color:rgba(var(--ink-rgb),.4); }
 
 /* Footer */
 .dirC .c-footer { margin-top:108px; background:var(--invert-bg); color:var(--invert-text); padding:84px 80px 60px; }
-.dirC .c-footer .big { font-size:clamp(60px, 6.5vw, 96px); line-height:0.98; letter-spacing:-0.03em; font-weight:600; margin:0 0 44px; max-width:14ch; }
+.dirC .c-footer .big { font-size:clamp(60px,6.5vw,96px); line-height:.98; letter-spacing:-.03em; font-weight:600; margin:0 0 44px; max-width:14ch; }
 .dirC .c-links { display:flex; gap:16px; flex-wrap:wrap; }
-.dirC .c-links a { color:var(--invert-bg); background:var(--invert-text); text-decoration:none; font-size:14px; font-weight:600; padding:13px 26px; border-radius:999px; transition:background .2s, color .2s; }
+.dirC .c-links a { color:var(--invert-bg); background:var(--invert-text); text-decoration:none; font-size:14px; font-weight:600; padding:13px 26px; border-radius:999px; transition:background .2s,color .2s; }
 .dirC .c-links a:hover { background:var(--accent); color:#fff; }
-.dirC .c-foot-meta { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:64px; font-size:11.5px; color:rgba(var(--invert-rgb),0.4); }
+.dirC .c-foot-meta { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:64px; font-size:11.5px; color:rgba(var(--invert-rgb),.4); }
 
-@media (max-width: 900px) {
-  .dirC .c-topbar { padding:16px 24px; }
-  .dirC .c-topbar nav { gap:16px; font-size:12px; }
-  .dirC .c-hero { padding:64px 24px 56px; }
-  .dirC .c-hero .sub { grid-template-columns:1fr; gap:32px; }
-  .dirC .c-stickers { justify-content:flex-start; }
-  .dirC .c-secthead { padding:0 24px; }
+/* Edit link fields */
+.dirC .ed-link-href { display:block; font-size:10px; font-family:'IBM Plex Mono',monospace; opacity:.5; margin-top:4px; word-break:break-all; }
+
+@media (max-width:900px) {
+  .dirC .c-topbar { padding:16px 24px; } .dirC .c-topbar nav { gap:16px; font-size:12px; }
+  .dirC .c-hero { padding:64px 24px 56px; } .dirC .c-hero .sub { grid-template-columns:1fr; gap:32px; }
+  .dirC .c-stickers { justify-content:flex-start; } .dirC .c-secthead { padding:0 24px; }
   .dirC .c-spread { grid-template-columns:1fr; min-height:auto; }
-  .dirC .c-spread .imgside { min-height:56vw; order:0 !important; border:none !important; border-bottom:1px solid rgba(var(--ink-rgb),0.12) !important; }
-  .dirC .c-spread .txtside { padding:48px 24px; }
-  .dirC .c-slots { grid-template-columns:1fr; padding:20px 24px 0; }
+  .dirC .c-spread .imgside { min-height:56vw; order:0 !important; border:none !important; border-bottom:1px solid rgba(var(--ink-rgb),.12) !important; }
+  .dirC .c-spread .txtside { padding:48px 24px; } .dirC .c-slots { grid-template-columns:1fr; padding:20px 24px 0; }
   .dirC .c-about { grid-template-columns:1fr; margin:64px 24px 0; }
-  .dirC .c-about .left { border-right:none; border-bottom:1px solid rgba(var(--ink-rgb),0.12); padding:40px 32px; }
+  .dirC .c-about .left { border-right:none; border-bottom:1px solid rgba(var(--ink-rgb),.12); padding:40px 32px; }
   .dirC .c-about .right { padding:40px 32px; }
   .dirC .c-strip { grid-template-columns:repeat(2,1fr); padding:0 24px; }
   .dirC .c-footer { padding:64px 24px 48px; }
-  .dirC .c-foot-meta { flex-direction:column; gap:4px; }
 }
 `;
 
 // ═══════════════════════════════════════════════════════════════════
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════════════════════
-const TWEAK_DEFAULTS = {
-  theme: "Ink (Dark)",
-  texture: "Cursor",
-  accent: "",
-  projectsLayout: "Spreads",
-  alternateSides: true,
-  headingFx: "Scramble",
-  parallax: "Subtle",
-};
+const TWEAK_DEFAULTS = { theme:"Ink (Dark)", texture:"Cursor", accent:"", projectsLayout:"Spreads", alternateSides:true, headingFx:"Scramble", parallax:"Subtle" };
 
 function DirectionCLive() {
-  const D = PORTFOLIO_DATA;
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [content, setContent] = React.useState(loadContent);
+  const [em, setEm] = React.useState(false);
+  const [showSaved, setShowSaved] = React.useState(false);
+  const savedTimer = React.useRef(null);
+
+  const flash = React.useCallback(() => {
+    setShowSaved(true);
+    clearTimeout(savedTimer.current);
+    savedTimer.current = setTimeout(() => setShowSaved(false), 1600);
+  }, []);
+
+  const up = React.useCallback((path, val) => {
+    setContent(prev => {
+      const next = setIn(prev, path, val);
+      try { localStorage.setItem(CONTENT_KEY, JSON.stringify(next)); } catch {}
+      return next;
+    });
+  }, []);
+
+  const reset = React.useCallback(() => {
+    if (window.confirm('Reset all text content to defaults?')) {
+      localStorage.removeItem(CONTENT_KEY);
+      setContent(DEFAULT_CONTENT);
+    }
+  }, []);
+
   const theme = C_THEMES[tweaks.theme] || C_THEMES["Ink (Dark)"];
   const tex = C_TEXTURES[tweaks.texture] || C_TEXTURES["Cursor"];
   const accentHex = tweaks.accent || theme.accent;
-  const accentRgb = C_rgb(accentHex);
-  const accentBright = tweaks.accent ? C_lighten(accentHex, 0.24) : theme.accentBright;
+  const accentRgb = rgb(accentHex);
+  const accentBright = tweaks.accent ? lighten(accentHex, 0.24) : theme.accentBright;
   const isDark = tweaks.theme.includes("Dark");
-  const reduce = typeof window !== "undefined" && window.matchMedia
-    && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 
   const rootStyle = {
-    "--bg": theme.bg,
-    "--ink": theme.ink,
-    "--ink-rgb": theme.inkRgb,
-    "--accent": accentHex,
-    "--accent-rgb": accentRgb,
-    "--accent-bright": accentBright,
-    "--surface": theme.surface,
-    "--invert-bg": theme.invertBg,
-    "--invert-text": theme.invertText,
-    "--invert-rgb": theme.invertRgb,
-    "--tex-image": tex.image,
-    "--tex-size": tex.size,
+    "--bg":theme.bg, "--ink":theme.ink, "--ink-rgb":theme.inkRgb,
+    "--accent":accentHex, "--accent-rgb":accentRgb, "--accent-bright":accentBright,
+    "--surface":theme.surface, "--invert-bg":theme.invertBg, "--invert-text":theme.invertText, "--invert-rgb":theme.invertRgb,
+    "--tex-image":tex.image, "--tex-size":tex.size,
   };
 
-  return (
-    <div className="dirC" style={rootStyle}>
-      <style>{dirCLiveCSS}</style>
-      <GrainOverlay opacity={isDark ? 0.09 : 0.05} />
-      <CDotField
-        active={tweaks.texture === "Cursor"}
-        inkRgb={theme.inkRgb}
-        accentRgb={accentRgb}
-        reduce={reduce}
-      />
+  const editCtx = React.useMemo(() => ({ em, content, up, flash }), [em, content, up, flash]);
 
-      <div style={{ position:"relative", zIndex:1 }}>
+  return (
+    <EditCtx.Provider value={editCtx}>
+    <div className="dirC" style={rootStyle}>
+      <style>{CSS}</style>
+      <GrainOverlay opacity={isDark ? 0.09 : 0.05} />
+      <CDotField active={tweaks.texture === "Cursor"} inkRgb={theme.inkRgb} accentRgb={accentRgb} reduce={reduce} />
+      {em && <div className="ed-bar" />}
+      <SaveToast show={showSaved} />
+
+      <div style={{position:"relative",zIndex:1}}>
 
         {/* ── Top Bar ── */}
         <header className="c-topbar">
-          <span className="c-logo">Elad Adler<span className="cobalt">®</span></span>
-          <nav className="mono">
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#poems">Poems</a>
-            <a href="#photos">Photos</a>
-            <a href="#contact">Contact</a>
-          </nav>
-          <span className="c-avail mono">
-            <span className="dot" />
-            AVAILABLE — 2026
+          <E v={content.kicker.includes("ux/ui") ? "Elad Adler" : content.kicker} tag="span" cn="c-logo mono" path={['kicker']}
+            st={{fontFamily:"'Archivo',sans-serif", fontWeight:700, letterSpacing:"-.01em", fontSize:15}}>
+          </E>
+          {/* Override with just the logo name */}
+          <span className="c-logo" style={{position:"absolute",left:80}}>
+            <span style={{fontWeight:700,letterSpacing:"-.01em",fontSize:15}}>Elad Adler</span><span className="cobalt">®</span>
           </span>
+          <nav className="mono">
+            <a href="#work">Work</a><a href="#about">About</a><a href="#poems">Poems</a><a href="#photos">Photos</a><a href="#contact">Contact</a>
+          </nav>
+          <div style={{display:"flex",alignItems:"center",gap:12}}>
+            <span className="c-avail mono"><span className="dot"/>AVAILABLE — 2026</span>
+            <button className={"ed-toggle mono "+(em?"on":"off")} onClick={() => setEm(v => !v)}>
+              {em ? "✓ Done" : "✎ Edit"}
+            </button>
+          </div>
         </header>
 
         {/* ── Hero ── */}
         <section className="c-hero">
-          <div className="c-kicker mono">ux/ui design · product strategy · jerusalem</div>
+          <E v={content.kicker} tag="div" path={['kicker']} cn="c-kicker mono"/>
           <h1>
-            <FxHeading block fx={tweaks.headingFx} parts={[
-              { text: "Intuitive products, " },
-              { text: "built on human psychology", hl: true },
-              { text: "." },
-            ]} />
+            {em ? (
+              <>
+                <E v={content.heroT1} tag="span" path={['heroT1']}/>
+                <E v={content.heroT2} tag="span" path={['heroT2']} cn="c-hl"/>
+                <E v={content.heroT3} tag="span" path={['heroT3']}/>
+              </>
+            ) : (
+              <FxHeading block fx={tweaks.headingFx} parts={[
+                {text:content.heroT1}, {text:content.heroT2, hl:true}, {text:content.heroT3}
+              ]}/>
+            )}
           </h1>
           <div className="sub">
-            <p>{D.bioShort}</p>
+            <E v={content.bioShort} tag="p" multi path={['bioShort']}/>
             <div className="c-stickers mono">
-              <span className="c-sticker">B.Des — Bezalel</span>
-              <span className="c-sticker blue">M.A. Psychodrama</span>
-              <span className="c-sticker">AI-driven tools</span>
-              <span className="c-sticker">Social-tech</span>
+              {content.stickers.map((s,i) => (
+                <E key={i} v={s} tag="span" path={['stickers',i]} cn={"c-sticker"+(i===1?" blue":"")}/>
+              ))}
             </div>
           </div>
         </section>
@@ -1226,13 +1224,13 @@ function DirectionCLive() {
           <span className="n mono cobalt">(01–04 of 07)</span>
         </div>
         {tweaks.projectsLayout === "Spreads"
-          ? <CProjectsSpread alternate={tweaks.alternateSides} headingFx={tweaks.headingFx} parallax={C_PARALLAX_AMT[tweaks.parallax] ?? 0.55} />
-          : <CProjectsGrid headingFx={tweaks.headingFx} />
-        }
+          ? <CProjectsSpread alternate={tweaks.alternateSides} headingFx={tweaks.headingFx} parallax={C_PAR[tweaks.parallax]??0.55}/>
+          : <CProjectsGrid headingFx={tweaks.headingFx}/>}
         <div className="c-slots mono">
-          {D.projectSlots.map((s) => (
+          {content.projectSlots.map((s,si) => (
             <div key={s.num} className="c-slot">
-              <span className="n">{s.num}</span>{s.note}
+              <span className="n">{s.num}</span>
+              <E v={s.note} tag="span" path={['projectSlots',si,'note']}/>
             </div>
           ))}
         </div>
@@ -1240,15 +1238,17 @@ function DirectionCLive() {
         {/* ── About ── */}
         <section className="c-about" id="about">
           <div className="left">
-            <h2>Psychology first, pixels second.</h2>
-            <p>{D.bioLong}</p>
-            <p className="mono cobalt" style={{ fontSize:13 }}>→ design is empathy with a grid system.</p>
+            <E v={content.aboutTitle} tag="h2" path={['aboutTitle']}/>
+            <E v={content.bioLong} tag="p" multi path={['bioLong']}/>
+            <E v={content.aboutQuote} tag="p" path={['aboutQuote']} cn="mono cobalt" st={{fontSize:13}}/>
           </div>
           <div className="right">
-            <div className="c-fact"><span className="k mono">Education</span><span>B.Des Bezalel · M.A. Psychodrama</span></div>
-            <div className="c-fact"><span className="k mono">Focus</span><span>Care, community, learning</span></div>
-            <div className="c-fact"><span className="k mono">Tools</span><span>Figma · Claude Code · Base44</span></div>
-            <div className="c-fact"><span className="k mono">Currently</span><span>Open to good problems</span></div>
+            {content.facts.map((f,fi) => (
+              <div key={fi} className="c-fact">
+                <E v={f.k} tag="span" path={['facts',fi,'k']} cn="k mono"/>
+                <E v={f.v} tag="span" path={['facts',fi,'v']}/>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -1256,20 +1256,15 @@ function DirectionCLive() {
         <CPoemsHorizontal />
 
         {/* ── Photos ── */}
-        <div className="c-secthead" id="photos" style={{ marginTop:0 }}>
-          <span className="t">Through the lens</span>
-          <span className="n mono cobalt">(film + digital)</span>
+        <div className="c-secthead" id="photos" style={{marginTop:0}}>
+          <E v={content.photosHeading} tag="span" cn="t" path={['photosHeading']}/>
+          <E v={content.photosSubhead} tag="span" cn="n mono cobalt" path={['photosSubhead']}/>
         </div>
         <div className="c-strip">
-          {D.photos.map((ph) => (
-            <figure key={ph.id} className="c-shot" style={{ margin:0 }}>
-              <image-slot
-                id={"c-shot-"+ph.id}
-                shape="rounded" radius="5" fit="cover"
-                placeholder="Drop photo"
-                style={{ display:"block", width:"100%", height:"180px" }}
-              />
-              <figcaption className="cap mono">{ph.caption}</figcaption>
+          {content.photos.map((ph,pi) => (
+            <figure key={ph.id} className="c-shot" style={{margin:0}}>
+              <image-slot id={"c-shot-"+ph.id} shape="rounded" radius="5" fit="cover" placeholder="Drop photo" style={{display:"block",width:"100%",height:"180px"}}/>
+              <E v={ph.caption} tag="figcaption" path={['photos',pi,'caption']} cn="cap mono"/>
             </figure>
           ))}
         </div>
@@ -1277,65 +1272,55 @@ function DirectionCLive() {
         {/* ── Footer ── */}
         <footer className="c-footer" id="contact">
           <h2 className="big">
-            Have a good problem?{" "}
-            <span style={{ color:"var(--accent-bright)" }}>Let's talk.</span>
+            <E v={content.footerH1} tag="span" path={['footerH1']}/>
+            <E v={content.footerH2} tag="span" path={['footerH2']} st={{color:"var(--accent-bright)"}}/>
           </h2>
           <div className="c-links">
-            {D.links.map((l) => (
-              <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer">
-                {l.label} ↗
-              </a>
+            {content.links.map((l,li) => (
+              <div key={li} style={{display:"flex",flexDirection:"column",alignItems:"flex-start"}}>
+                {em ? (
+                  <>
+                    <E v={l.label} tag="span" path={['links',li,'label']}
+                      st={{color:"var(--invert-bg)",background:"var(--invert-text)",textDecoration:"none",fontSize:14,fontWeight:600,padding:"13px 26px",borderRadius:999,display:"inline-block"}}/>
+                    <E v={l.href} tag="span" path={['links',li,'href']} cn="ed-link-href"/>
+                  </>
+                ) : (
+                  <a href={l.href} target="_blank" rel="noopener noreferrer">{l.label} ↗</a>
+                )}
+              </div>
             ))}
           </div>
           <div className="c-foot-meta mono">
-            <span>© 2026 Elad Adler</span>
-            <span>Jerusalem, IL</span>
+            <E v={content.copyright} tag="span" path={['copyright']}/>
+            <E v={content.locationMeta} tag="span" path={['locationMeta']}/>
             <span>v0.2 — studio sheet · live scroll</span>
           </div>
         </footer>
 
+        {/* ── Edit mode: reset button ── */}
+        {em && (
+          <div style={{position:"fixed",bottom:16,left:16,zIndex:9998}}>
+            <button onClick={reset} style={{appearance:"none",border:"1px solid rgba(255,100,100,.4)",borderRadius:8,background:"rgba(20,21,25,.88)",color:"rgba(255,100,100,.7)",padding:"7px 14px",font:"11px/1.4 'IBM Plex Mono',monospace",cursor:"pointer",backdropFilter:"blur(12px)"}}>
+              ↺ Reset content
+            </button>
+          </div>
+        )}
       </div>
 
       {/* ── Tweaks Panel ── */}
       <TweaksPanel>
-        <TweakSection label="Theme" />
-        <TweakSelect
-          label="Palette" value={tweaks.theme}
-          options={["Cool Paper","Warm Sand","Sage","Ink (Dark)","Ember (Dark)"]}
-          onChange={(v) => setTweak("theme", v)}
-        />
-        <TweakSelect
-          label="Background" value={tweaks.texture}
-          options={["Grid","Dots","Cursor","Plain"]}
-          onChange={(v) => setTweak("texture", v)}
-        />
-        <TweakColor
-          label="Accent" value={accentHex}
-          options={C_ACCENTS}
-          onChange={(v) => setTweak("accent", v)}
-        />
-        <TweakSection label="Projects" />
-        <TweakRadio
-          label="Layout" value={tweaks.projectsLayout}
-          options={["Grid","Spreads"]}
-          onChange={(v) => setTweak("projectsLayout", v)}
-        />
-        <TweakToggle
-          label="Alternate sides" value={tweaks.alternateSides}
-          onChange={(v) => setTweak("alternateSides", v)}
-        />
-        <TweakRadio
-          label="Image parallax" value={tweaks.parallax}
-          options={["Off","Subtle","Strong"]}
-          onChange={(v) => setTweak("parallax", v)}
-        />
-        <TweakSelect
-          label="Heading hover" value={tweaks.headingFx}
-          options={["None","Scramble","Highlight","Slide","Split"]}
-          onChange={(v) => setTweak("headingFx", v)}
-        />
+        <TweakSection label="Theme"/>
+        <TweakSelect label="Palette" value={tweaks.theme} options={["Cool Paper","Warm Sand","Sage","Ink (Dark)","Ember (Dark)"]} onChange={v=>setTweak("theme",v)}/>
+        <TweakSelect label="Background" value={tweaks.texture} options={["Grid","Dots","Cursor","Plain"]} onChange={v=>setTweak("texture",v)}/>
+        <TweakColor label="Accent" value={accentHex} options={C_ACCENTS} onChange={v=>setTweak("accent",v)}/>
+        <TweakSection label="Projects"/>
+        <TweakRadio label="Layout" value={tweaks.projectsLayout} options={["Grid","Spreads"]} onChange={v=>setTweak("projectsLayout",v)}/>
+        <TweakToggle label="Alternate sides" value={tweaks.alternateSides} onChange={v=>setTweak("alternateSides",v)}/>
+        <TweakRadio label="Image parallax" value={tweaks.parallax} options={["Off","Subtle","Strong"]} onChange={v=>setTweak("parallax",v)}/>
+        <TweakSelect label="Heading hover" value={tweaks.headingFx} options={["None","Scramble","Highlight","Slide","Split"]} onChange={v=>setTweak("headingFx",v)}/>
       </TweaksPanel>
     </div>
+    </EditCtx.Provider>
   );
 }
 
