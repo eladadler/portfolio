@@ -407,12 +407,16 @@ const DEFAULT_CONTENT = {
     { k: "Tools",     v: "Figma · Claude Code · Base44" },
     { k: "Currently", v: "Open to good problems" },
   ],
-  poemsHeading: "Poems, occasionally",
-  poems: {
-    note: "sample lines — replace with your poems",
-    en: { title: "untitled (cursor)", text: "the cursor blinks\nlike someone breathing\nin another room —\nI leave the light on." },
-    he: { title: "בין פיקסל לפיקסל", text: "בֵּין פִּיקְסֶל לְפִיקְסֶל\nנִשְׁאָר רֶוַח קָטָן\nשֶׁאֶפְשָׁר לָגוּר בּוֹ." },
-    slots: ["open slot — drop a poem here", "open slot — he or en"],
+  industrialDesign: {
+    heading: "industrial design",
+    items: [
+      { id: "id1", image: null, title: "piece 01", desc: "Material, context, or concept — replace with your own description." },
+      { id: "id2", image: null, title: "piece 02", desc: "Material, context, or concept — replace with your own description." },
+      { id: "id3", image: null, title: "piece 03", desc: "Material, context, or concept — replace with your own description." },
+      { id: "id4", image: null, title: "piece 04", desc: "Material, context, or concept — replace with your own description." },
+      { id: "id5", image: null, title: "piece 05", desc: "Material, context, or concept — replace with your own description." },
+      { id: "id6", image: null, title: "piece 06", desc: "Material, context, or concept — replace with your own description." },
+    ],
   },
   photosHeading: "Through the lens",
   photosSubhead: "(film + digital)",
@@ -781,82 +785,32 @@ function ParallaxImage({ src, alt, amount }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// POEMS HORIZONTAL SCROLL
+// INDUSTRIAL DESIGN GALLERY
 // ═══════════════════════════════════════════════════════════════════
-function CPoemsHorizontal() {
+function CIndustrialDesign() {
   const { content, em, up } = React.useContext(EditCtx);
-  const wrapRef=React.useRef(null), trackRef=React.useRef(null), fillRef=React.useRef(null), countRef=React.useRef(null);
-  const [wrapH, setWrapH] = React.useState("200vh");
-  React.useEffect(()=>{
-    let dist=0,raf=0;
-    const measure=()=>{
-      const track=trackRef.current;if(!track)return;
-      dist=Math.max(track.scrollWidth-document.documentElement.clientWidth,0);
-      setWrapH(window.innerHeight+dist+"px"); apply();
-    };
-    const apply=()=>{
-      const wrap=wrapRef.current,track=trackRef.current;
-      if(!wrap||!track||dist<=0)return;
-      const top=wrap.getBoundingClientRect().top+window.scrollY;
-      const total=wrap.offsetHeight-window.innerHeight;
-      const p=total>0?Math.min(Math.max((window.scrollY-top)/total,0),1):0;
-      track.style.transform=`translate3d(${-p*dist}px,0,0)`;
-      if(fillRef.current)fillRef.current.style.width=(p*100).toFixed(2)+"%";
-      if(countRef.current){const n=4,i=Math.min(n,Math.floor(p*n)+1);countRef.current.textContent="0"+i+" / 0"+n;}
-    };
-    const onScroll=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(apply);};
-    measure();
-    window.addEventListener("resize",measure); window.addEventListener("scroll",onScroll,{passive:true});
-    return()=>{cancelAnimationFrame(raf);window.removeEventListener("resize",measure);window.removeEventListener("scroll",onScroll);};
-  },[]);
-
-  const p = content.poems;
+  const d = content.industrialDesign;
   return (
-    <section id="poems" ref={wrapRef} style={{position:"relative",marginTop:100,height:wrapH}}>
-      <div style={{position:"sticky",top:0,height:"100vh",overflow:"hidden",display:"flex",flexDirection:"column"}}>
-        <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",padding:"96px 80px 0",flex:"0 0 auto"}}>
-          <E v={content.poemsHeading} tag="span" path={['poemsHeading']} st={{fontSize:15,fontWeight:600,letterSpacing:"0.02em"}}/>
-          <span className="mono cobalt" style={{fontSize:12}}>scroll ↓ = →</span>
-        </div>
-        <div style={{flex:1,display:"flex",alignItems:"center",minHeight:0}}>
-          <div ref={trackRef} style={{display:"flex",alignItems:"stretch",gap:32,padding:"0 80px",willChange:"transform"}}>
-            {/* EN poem */}
-            <div className="c-hpoem" data-tag="EN — POEM">
-              <E v={p.en.title} tag="h4" path={['poems','en','title']} cn="pt"/>
-              <E v={p.en.text} tag="div" multi path={['poems','en','text']} cn="pl" st={{whiteSpace:"pre-line"}}/>
-              <div className="c-note mono">{p.note}</div>
-            </div>
-            {/* HE poem */}
-            <div className="c-hpoem" data-tag="HE — שיר">
-              <E v={p.he.title} tag="h4" path={['poems','he','title']} cn="pt rtl"/>
-              <E v={p.he.text} tag="div" multi path={['poems','he','text']} cn="pl rtl" st={{whiteSpace:"pre-line",direction:"rtl",textAlign:"right",fontFamily:"'Noto Sans Hebrew',sans-serif"}}/>
-              <div className="c-note mono">{p.note}</div>
-            </div>
-            {/* Slots */}
-            <div className="c-hslot mono">
-              <span className="n">[ poem 03 ]</span>
-              <E v={p.slots[0]} tag="span" path={['poems','slots',0]}/>
-            </div>
-            <div className="c-hslot mono">
-              <span className="n">[ poem 04 ]</span>
-              <E v={p.slots[1]} tag="span" path={['poems','slots',1]}/>
-            </div>
-            {/* End */}
-            <div style={{flex:"0 0 auto",display:"flex",alignItems:"center",paddingRight:80}}>
-              <div style={{fontSize:64,fontWeight:600,letterSpacing:"-0.03em",lineHeight:1.05,maxWidth:"9ch",color:"rgba(var(--ink-rgb),0.9)"}}>
-                Back to <span className="cobalt">scrolling down</span>. ↓
+    <section id="design" style={{marginTop:100}}>
+      <div className="c-secthead">
+        <E v={d.heading} tag="span" cn="t" path={['industrialDesign','heading']}/>
+      </div>
+      <div className="c-idgrid">
+        {d.items.map((item, i) => (
+          <div key={item.id} className={"c-iditem"+(em?" c-iditem-em":"")}>
+            <div style={{position:"relative",width:"100%",height:"100%"}}>
+              {item.image
+                ? <img src={item.image} alt={item.title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+                : <image-slot id={"c-id-"+item.id} shape="rect" fit="cover" placeholder={"Drop image — "+item.title} style={{display:"block",width:"100%",height:"100%"}}/>
+              }
+              <ReplaceImgBtn path={['industrialDesign','items',i,'image']}/>
+              <div className="c-idoverlay">
+                <E v={item.title} tag="h4" cn="c-idtitle" path={['industrialDesign','items',i,'title']}/>
+                <E v={item.desc} tag="p" multi cn="c-iddesc" path={['industrialDesign','items',i,'desc']}/>
               </div>
             </div>
           </div>
-        </div>
-        <div style={{flex:"0 0 auto",padding:"0 80px 40px"}}>
-          <div style={{height:2,background:"rgba(var(--ink-rgb),0.15)",position:"relative"}}>
-            <div ref={fillRef} style={{position:"absolute",left:0,top:0,bottom:0,width:"0%",background:"var(--accent)"}}/>
-          </div>
-          <div className="mono" style={{display:"flex",justifyContent:"space-between",marginTop:12,fontSize:11,color:"rgba(var(--ink-rgb),0.5)"}}>
-            <span ref={countRef}>01 / 04</span><span>(he + en)</span>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );
@@ -1070,11 +1024,15 @@ html, body { overflow-x: clip; }
 .dirC .c-fact:last-child { border-bottom:none; }
 .dirC .c-fact .k { color:rgba(var(--invert-rgb),.45); }
 
-/* Poems */
-.dirC .c-hpoem { flex:0 0 540px; background:var(--surface); border:1px solid rgba(var(--ink-rgb),.15); border-radius:6px; padding:46px 48px 38px; position:relative; display:flex; flex-direction:column; min-height:380px; max-height:62vh; }
-.dirC .c-hpoem::before { content:attr(data-tag); position:absolute; top:-11px; left:26px; background:var(--accent); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; padding:4px 10px; border-radius:999px; transform:rotate(-1.5deg); }
-.dirC .c-hpoem .pt { font-size:24px; font-weight:600; margin:0 0 20px; letter-spacing:-.01em; }
-.dirC .c-hpoem .pl { font-size:15px; line-height:2.05; white-space:pre-line; flex:1; opacity:.85; }
+/* Industrial Design Gallery */
+.dirC .c-idgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; padding:0 80px; margin-top:40px; }
+.dirC .c-iditem { position:relative; aspect-ratio:4/3; overflow:hidden; }
+.dirC .c-iditem > div { width:100%; height:100%; }
+.dirC .c-idoverlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.4) 55%, transparent 100%); opacity:0; transition:opacity .28s ease; display:flex; flex-direction:column; justify-content:flex-end; padding:28px 26px; pointer-events:none; }
+.dirC .c-iditem:hover .c-idoverlay { opacity:1; }
+.dirC .c-iditem-em .c-idoverlay { opacity:1; pointer-events:auto; background:linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.2) 100%); }
+.dirC .c-idtitle { font-size:17px; font-weight:600; color:#fff; margin:0 0 6px; letter-spacing:-.01em; }
+.dirC .c-iddesc { font-size:12.5px; line-height:1.6; color:rgba(255,255,255,.78); margin:0; }
 .dirC .c-note { font-size:11px; color:rgba(var(--ink-rgb),.35); margin-top:20px; }
 .dirC .c-hslot { flex:0 0 420px; border:1.5px dashed rgba(var(--accent-rgb),.35); border-radius:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; font-size:12.5px; color:rgba(var(--ink-rgb),.45); min-height:380px; max-height:62vh; text-align:center; padding:30px; }
 .dirC .c-hslot .n { color:var(--accent); }
@@ -1107,6 +1065,7 @@ html, body { overflow-x: clip; }
   .dirC .c-about .left { border-right:none; border-bottom:1px solid rgba(var(--ink-rgb),.12); padding:40px 32px; }
   .dirC .c-about .right { padding:40px 32px; }
   .dirC .c-strip { grid-template-columns:repeat(2,1fr); padding:0 24px; }
+  .dirC .c-idgrid { grid-template-columns:repeat(2,1fr); padding:0 24px; }
   .dirC .c-footer { padding:64px 24px 48px; }
 }
 `;
@@ -1182,7 +1141,7 @@ function DirectionCLive() {
             <span style={{fontWeight:700,letterSpacing:"-.01em",fontSize:15}}>Elad Adler</span><span className="cobalt">®</span>
           </span>
           <nav className="mono">
-            <a href="#work">Work</a><a href="#about">About</a><a href="#poems">Poems</a><a href="#photos">Photos</a><a href="#contact">Contact</a>
+            <a href="#work">Work</a><a href="#about">About</a><a href="#design">Design</a><a href="#photos">Photos</a><a href="#contact">Contact</a>
           </nav>
           <div style={{display:"flex",alignItems:"center",gap:12}}>
             <span className="c-avail mono"><span className="dot"/>AVAILABLE — 2026</span>
@@ -1252,8 +1211,8 @@ function DirectionCLive() {
           </div>
         </section>
 
-        {/* ── Poems ── */}
-        <CPoemsHorizontal />
+        {/* ── Industrial Design ── */}
+        <CIndustrialDesign />
 
         {/* ── Photos ── */}
         <div className="c-secthead" id="photos" style={{marginTop:0}}>
