@@ -441,6 +441,9 @@ const DEFAULT_CONTENT = {
 // CONTENT PERSISTENCE
 // ═══════════════════════════════════════════════════════════════════
 const CONTENT_KEY = 'elad_portfolio_v2';
+const GH_REPO = 'eladadler/portfolio';
+const GH_FILE = 'portfolio-content.json';
+const GH_TOKEN_KEY = 'elad_gh_token';
 
 function setIn(obj, path, val) {
   if (!path || path.length === 0) return val;
@@ -453,12 +456,53 @@ function setIn(obj, path, val) {
   return { ...obj, [h]: setIn(obj ? obj[h] : undefined, rest, val) };
 }
 
+function mergeWithDefaults(saved) {
+  const result = JSON.parse(JSON.stringify(DEFAULT_CONTENT));
+  if (!saved || typeof saved !== 'object') return result;
+  for (const k of Object.keys(result)) {
+    if (k in saved) result[k] = saved[k];
+  }
+  return result;
+}
+
 function loadContent() {
   try {
     const s = JSON.parse(localStorage.getItem(CONTENT_KEY));
-    if (s && typeof s === 'object') return Object.assign({}, DEFAULT_CONTENT, s);
+    if (s && typeof s === 'object') return mergeWithDefaults(s);
   } catch {}
   return DEFAULT_CONTENT;
+}
+
+async function fetchRemoteContent() {
+  try {
+    const res = await fetch('./' + GH_FILE + '?t=' + Date.now());
+    if (!res.ok) return null;
+    const j = await res.json();
+    if (j && typeof j === 'object' && Object.keys(j).length > 0) return j;
+  } catch {}
+  return null;
+}
+
+async function pushToGitHub(content, token) {
+  const api = 'https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_FILE;
+  let sha = '';
+  try {
+    const r = await fetch(api, { headers: { Authorization: 'token ' + token } });
+    if (r.ok) { const d = await r.json(); sha = d.sha || ''; }
+  } catch {}
+  const json = JSON.stringify(content, null, 2);
+  const bytes = new TextEncoder().encode(json);
+  const b64 = btoa(Array.from(bytes, b => String.fromCharCode(b)).join(''));
+  const body = { message: 'Update portfolio content', content: b64, ...(sha ? { sha } : {}) };
+  const res = await fetch(api, {
+    method: 'PUT',
+    headers: { Authorization: 'token ' + token, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'GitHub API error ' + res.status);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1080,13 +1124,32 @@ function DirectionCLive() {
   const [content, setContent] = React.useState(loadContent);
   const [em, setEm] = React.useState(false);
   const [showSaved, setShowSaved] = React.useState(false);
+  const [syncing, setSyncing] = React.useState(false);
+  const [syncMsg, setSyncMsg] = React.useState('');
   const savedTimer = React.useRef(null);
+  const syncTimer = React.useRef(null);
+
+  // Load remote content.json on first visit (source of truth over localStorage)
+  React.useEffect(() => {
+    fetchRemoteContent().then(remote => {
+      if (!remote) return;
+      const merged = mergeWithDefaults(remote);
+      setContent(merged);
+      try { localStorage.setItem(CONTENT_KEY, JSON.stringify(merged)); } catch {}
+    });
+  }, []);
 
   const flash = React.useCallback(() => {
     setShowSaved(true);
     clearTimeout(savedTimer.current);
     savedTimer.current = setTimeout(() => setShowSaved(false), 1600);
   }, []);
+
+  const showSync = (msg) => {
+    setSyncMsg(msg);
+    clearTimeout(syncTimer.current);
+    syncTimer.current = setTimeout(() => setSyncMsg(''), 4000);
+  };
 
   const up = React.useCallback((path, val) => {
     setContent(prev => {
@@ -1095,6 +1158,26 @@ function DirectionCLive() {
       return next;
     });
   }, []);
+
+  const handlePush = React.useCallback(async () => {
+    let token = localStorage.getItem(GH_TOKEN_KEY) || '';
+    if (!token) {
+      token = window.prompt('Enter your GitHub personal access token (stored locally, needed once):');
+      if (!token) return;
+      localStorage.setItem(GH_TOKEN_KEY, token.trim());
+      token = token.trim();
+    }
+    setSyncing(true);
+    setSyncMsg('');
+    try {
+      await pushToGitHub(content, token);
+      showSync('✓ Saved to GitHub — live in ~60s');
+    } catch (e) {
+      showSync('✗ ' + e.message);
+    } finally {
+      setSyncing(false);
+    }
+  }, [content]);
 
   const reset = React.useCallback(() => {
     if (window.confirm('Reset all text content to defaults?')) {
@@ -1144,7 +1227,14 @@ function DirectionCLive() {
             <a href="#work">Work</a><a href="#about">About</a><a href="#design">Design</a><a href="#photos">Photos</a><a href="#contact">Contact</a>
           </nav>
           <div style={{display:"flex",alignItems:"center",gap:12}}>
+            {syncMsg && <span className="mono" style={{fontSize:11,color:syncMsg.startsWith('✓')?"var(--accent)":"#e05252",transition:"opacity .3s"}}>{syncMsg}</span>}
             <span className="c-avail mono"><span className="dot"/>AVAILABLE — 2026</span>
+            {em && (
+              <button className="ed-toggle mono off" disabled={syncing} onClick={handlePush}
+                title="Save all content + images to GitHub (persists across devices)">
+                {syncing ? '↑ Saving…' : '☁ Push'}
+              </button>
+            )}
             <button className={"ed-toggle mono "+(em?"on":"off")} onClick={() => setEm(v => !v)}>
               {em ? "✓ Done" : "✎ Edit"}
             </button>
