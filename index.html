@@ -1008,7 +1008,7 @@ function CProjectsGrid({ headingFx }) {
             <div className="c-tags mono">
               {p.tags.map((t,ti)=><E key={ti} v={t} tag="span" path={['projects',pi,'tags',ti]} cn="c-tag"/>)}
             </div>
-            <a href={"./case-study.html?id="+p.num} className="c-cta-link mono">
+            <a href={p.num==="01"?"./case-study-01.html":"./case-study.html?id="+p.num} className="c-cta-link mono">
               View case study <span className="c-cta-arrow">→</span>
             </a>
           </div>
@@ -1045,7 +1045,7 @@ function CProjectsSpread({ alternate=true, headingFx, parallax=0 }) {
             <div className="c-tags mono">
               {p.tags.map((t,ti)=><E key={ti} v={t} tag="span" path={['projects',pi,'tags',ti]} cn="c-tag"/>)}
             </div>
-            <a href={"./case-study.html?id="+p.num} className="c-cta-btn mono">
+            <a href={p.num==="01"?"./case-study-01.html":"./case-study.html?id="+p.num} className="c-cta-btn mono">
               Case study <span className="c-cta-arrow">→</span>
             </a>
           </div>
