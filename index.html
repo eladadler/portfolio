@@ -1260,12 +1260,10 @@ function DirectionCLive() {
           <div style={{display:"flex",alignItems:"center",gap:12}}>
             {syncMsg && <span className="mono" style={{fontSize:11,color:syncMsg.startsWith('✓')?"var(--accent)":"#e05252",transition:"opacity .3s"}}>{syncMsg}</span>}
             <span className="c-avail mono"><span className="dot"/>AVAILABLE — 2026</span>
-            {em && (
-              <button className="ed-toggle mono off" disabled={syncing} onClick={handlePush}
-                title="Save all content + images to GitHub (persists across devices)">
-                {syncing ? '↑ Saving…' : '☁ Push'}
-              </button>
-            )}
+            <button className="ed-toggle mono off" disabled={syncing} onClick={handlePush}
+              title="Save all content + images to GitHub">
+              {syncing ? '↑ Saving…' : '☁ Save'}
+            </button>
             <button className={"ed-toggle mono "+(em?"on":"off")} onClick={() => setEm(v => !v)}>
               {em ? "✓ Done" : "✎ Edit"}
             </button>
