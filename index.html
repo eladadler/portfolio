@@ -435,6 +435,96 @@ const DEFAULT_CONTENT = {
   ],
   copyright: "© 2026 Elad Adler",
   locationMeta: "Jerusalem, IL",
+  caseStudies: {
+    "01": {
+      heroSub: "Transforming manual matchmaking into a streamlined digital workflow",
+      coverImage: null,
+      overview: "Sababa & All is a matchmaking platform for a community organisation. The team was drowning in spreadsheets, sticky notes and WhatsApp threads — I turned it into a focused digital workflow that the team actually adopted.",
+      challenge: "The matchmaking coordinators juggled dozens of active connections per week using scattered tools. Information was duplicated, privacy was at risk, and onboarding a new coordinator meant weeks of tribal knowledge transfer.",
+      process: [
+        { step: "01", title: "Discovery", text: "Shadowed coordinators for a week. Mapped every touchpoint from first contact to successful match. Identified 11 distinct friction points." },
+        { step: "02", title: "UX Design", text: "Designed a privacy-first card system with status pipelines. Ran 3 rounds of low-fi testing with the team before moving to high-fidelity." },
+        { step: "03", title: "Build & Launch", text: "Built with Claude Code. Launched in 2 weeks, iterated in 3 sprints based on real coordinator feedback." },
+      ],
+      outcome: "The platform replaced every spreadsheet and group chat. All three coordinators use it daily with zero training overhead.",
+      stats: [
+        { value: "11", label: "friction points removed" },
+        { value: "100%", label: "team adoption" },
+        { value: "2 wks", label: "to live" },
+      ],
+      gallery: [
+        { image: null, caption: "Main dashboard — match pipeline" },
+        { image: null, caption: "Candidate card — privacy-first design" },
+        { image: null, caption: "Coordinator view — weekly workload" },
+      ],
+    },
+    "02": {
+      heroSub: "AI-assisted shift scheduling for therapeutic and residential care teams",
+      coverImage: null,
+      overview: "ShiftWise replaces the weekly spreadsheet ritual for care team managers. It handles availability, swaps, and fairness rules — so managers spend time on care, not logistics.",
+      challenge: "Scheduling for a therapeutic team is not just about filling slots. It requires balancing clinical qualifications, personal availability, staff wellbeing, and regulatory fairness rules — all at once, every week.",
+      process: [
+        { step: "01", title: "Research", text: "Interviewed 8 care team managers across 3 organisations. Found that 4+ hours per week were lost to scheduling alone." },
+        { step: "02", title: "System Design", text: "Mapped the fairness rules into an algorithm. Designed constraint-based scheduling with override capability for edge cases." },
+        { step: "03", title: "Validation", text: "Piloted with one team for 6 weeks. Iterated on the swap request flow and the manager approval interface." },
+      ],
+      outcome: "Scheduling time dropped dramatically. Staff reported higher satisfaction — the system is transparent and fair, which matters as much as the time saved.",
+      stats: [
+        { value: "−75%", label: "scheduling time" },
+        { value: "0", label: "fairness complaints" },
+        { value: "3", label: "personas served" },
+      ],
+      gallery: [
+        { image: null, caption: "Weekly schedule board — manager view" },
+        { image: null, caption: "Swap request flow — staff view" },
+        { image: null, caption: "Fairness dashboard" },
+      ],
+    },
+    "03": {
+      heroSub: "Medication management for a Jerusalem Soteria house — from 5% errors to zero",
+      coverImage: null,
+      overview: "Balance is a medication tracking system designed for a supportive living environment in Jerusalem. The existing process — handwritten logs and verbal handoffs — produced a 5% error rate. The redesign brought it to 0%.",
+      challenge: "Three distinct user personas (residents, house staff, and a supervising clinician) all interact with the medication process differently. A single interface could not serve all three — the system needed to adapt to each role without adding complexity.",
+      process: [
+        { step: "01", title: "Persona Mapping", text: "Ran contextual interviews with all three user types. Built distinct journey maps and identified where errors occurred in the handoff chain." },
+        { step: "02", title: "Error Analysis", text: "Categorised the 5% errors: 60% were timing errors, 30% were dosage misreadings, 10% were missed signatures. Designed against each category." },
+        { step: "03", title: "3-Screen System", text: "Built with Base44. Each persona gets a tailored view. Cross-role confirmations create a closed loop that prevents silent errors." },
+      ],
+      outcome: "Medication errors dropped from 5% to 0% within the first month. All three user groups report the system feels natural for their role.",
+      stats: [
+        { value: "5%→0%", label: "medication errors" },
+        { value: "3", label: "personas, 1 system" },
+        { value: "1 mo", label: "to reach zero errors" },
+      ],
+      gallery: [
+        { image: null, caption: "Resident morning view — dose confirmation" },
+        { image: null, caption: "Staff handoff screen" },
+        { image: null, caption: "Clinician audit log" },
+      ],
+    },
+    "04": {
+      heroSub: "An interactive Bible learning app — study, exploration, and AI-powered conversation",
+      coverImage: null,
+      overview: "BibleConnect was built for the '929' community project, which reads one Bible chapter per day across Israel. The app makes the text personal, searchable, and alive through AI-powered conversation and community commentary.",
+      challenge: "Ancient text in a modern interface risks two failure modes: making it feel like a museum exhibit, or making it feel shallow. The design challenge was to honour the depth of the source material while making it genuinely accessible to a secular, digital-native audience.",
+      process: [
+        { step: "01", title: "Content UX", text: "Mapped how different readers engage with sacred text — linear readers, explorers, and community participants. Designed for all three modes." },
+        { step: "02", title: "AI Conversation Design", text: "Crafted the conversational AI persona — knowledgeable but humble, surfacing context without moralising. Iterated on 40+ conversation starters." },
+        { step: "03", title: "Community Layer", text: "Designed the commentary system so personal annotations and shared insights coexist without competition. Launched with a seed community of 120 users." },
+      ],
+      outcome: "Daily active engagement exceeded projections. Users report spending 2× longer with the text than with the print edition — the AI conversation layer is the most-used feature.",
+      stats: [
+        { value: "2×", label: "avg. time with text" },
+        { value: "120", label: "seed community users" },
+        { value: "#1", label: "feature: AI chat" },
+      ],
+      gallery: [
+        { image: null, caption: "Daily chapter view — clean reading mode" },
+        { image: null, caption: "AI conversation — contextual Q&A" },
+        { image: null, caption: "Community annotations layer" },
+      ],
+    },
+  },
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -918,6 +1008,9 @@ function CProjectsGrid({ headingFx }) {
             <div className="c-tags mono">
               {p.tags.map((t,ti)=><E key={ti} v={t} tag="span" path={['projects',pi,'tags',ti]} cn="c-tag"/>)}
             </div>
+            <a href={"./case-study.html?id="+p.num} className="c-cta-link mono">
+              View case study <span className="c-cta-arrow">→</span>
+            </a>
           </div>
         </article>
       ))}
@@ -952,6 +1045,9 @@ function CProjectsSpread({ alternate=true, headingFx, parallax=0 }) {
             <div className="c-tags mono">
               {p.tags.map((t,ti)=><E key={ti} v={t} tag="span" path={['projects',pi,'tags',ti]} cn="c-tag"/>)}
             </div>
+            <a href={"./case-study.html?id="+p.num} className="c-cta-btn mono">
+              Case study <span className="c-cta-arrow">→</span>
+            </a>
           </div>
         </article>
       ))}
@@ -1077,6 +1173,13 @@ html, body { overflow-x: clip; }
 .dirC .c-card:hover { transform:translateY(-5px); box-shadow:0 16px 32px rgba(0,0,0,.25); }
 .dirC .c-tags { display:flex; flex-wrap:wrap; gap:8px; }
 .dirC .c-tag { font-size:11.5px; background:rgba(var(--ink-rgb),.07); border:1px solid rgba(var(--ink-rgb),.15); padding:5px 12px; border-radius:999px; }
+/* CTA links to case study */
+.dirC .c-cta-btn { display:inline-flex; align-items:center; gap:6px; margin-top:20px; padding:11px 22px; border-radius:999px; background:var(--accent); color:#fff; text-decoration:none; font-size:12px; font-weight:600; letter-spacing:.04em; transition:background .2s,transform .2s; }
+.dirC .c-cta-btn:hover { background:var(--accent-bright); transform:translateX(2px); }
+.dirC .c-cta-link { display:inline-flex; align-items:center; gap:6px; margin-top:22px; font-size:12px; font-weight:600; letter-spacing:.04em; color:var(--accent); text-decoration:none; transition:gap .2s,color .2s; }
+.dirC .c-cta-link:hover { gap:10px; color:var(--accent-bright); }
+.dirC .c-cta-arrow { display:inline-block; transition:transform .2s; }
+.dirC .c-cta-link:hover .c-cta-arrow, .dirC .c-cta-btn:hover .c-cta-arrow { transform:translateX(3px); }
 
 /* Spreads */
 .dirC .c-spread { display:grid; grid-template-columns:1.05fr 1fr; min-height:84vh; border-bottom:1px solid rgba(var(--ink-rgb),.15); background:var(--surface); }
