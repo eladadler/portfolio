@@ -1,1 +1,174 @@
-{}
+{
+  "kicker": "ux/ui design · product strategy · jerusalem",
+  "heroT1": "Intuitive products, ",
+  "heroT2": "built on human psychology",
+  "heroT3": ".",
+  "bioShort": "Multidisciplinary UX/UI designer (B.Des., Bezalel) and product strategist with an M.A. in Psychodrama. I combine human psychology with functional design to build intuitive digital experiences.",
+  "stickers": [
+    "B.Des — Bezalel",
+    "M.A. Psychodrama",
+    "AI-driven tools",
+    "Social-tech"
+  ],
+  "projects": [
+    {
+      "num": "01",
+      "title": "Sababa & All",
+      "meta": "Web app · UX/UI lead · Claude Code",
+      "desc": "Transformed manual matchmaking into a streamlined digital workflow — better organisation, privacy-first, and actually adopted by the team.",
+      "tags": [
+        "UX/UI lead",
+        "Workflow design",
+        "Privacy-first"
+      ],
+      "image": "assets/phones-mockup.png"
+    },
+    {
+      "num": "02",
+      "title": "ShiftWise",
+      "meta": "Scheduling platform · Base44",
+      "desc": "AI-assisted shift scheduling for therapeutic and residential care teams — availability, swaps and fairness management, minus the spreadsheet headache.",
+      "tags": [
+        "Complex system",
+        "AI-assisted",
+        "Fairness engine"
+      ]
+    },
+    {
+      "num": "03",
+      "title": "Balance",
+      "meta": "Web app · Base44 · vibe coding",
+      "desc": "Medication management for a Jerusalem 'Soteria' house. Medication errors dropped from 5% to 0% — faster and safer for all three user personas.",
+      "tags": [
+        "Health & care",
+        "3 personas",
+        "5% → 0% errors"
+      ]
+    },
+    {
+      "num": "04",
+      "title": "BibleConnect",
+      "meta": "Web app for '929' · Claude Code",
+      "desc": "An interactive Bible learning app — study, exploration and AI-powered conversation that makes an ancient text personal and accessible.",
+      "tags": [
+        "Learning",
+        "AI conversation",
+        "Content UX"
+      ]
+    }
+  ],
+  "projectSlots": [
+    {
+      "num": "05",
+      "note": "open slot — drop your next case study here"
+    },
+    {
+      "num": "06",
+      "note": "open slot — side project / experiment"
+    },
+    {
+      "num": "07",
+      "note": "open slot — visual / branding piece"
+    }
+  ],
+  "aboutTitle": "Psychology first, pixels second.",
+  "bioLong": "I lead social-tech ventures and non-profits, leveraging AI-driven tools, user advocacy and empathetic problem-solving. My favourite work sits where people are most human: care teams, communities, learning.",
+  "aboutQuote": "→ design is empathy with a grid system.",
+  "facts": [
+    {
+      "k": "Education",
+      "v": "B.Des Bezalel · M.A. Psychodrama"
+    },
+    {
+      "k": "Focus",
+      "v": "Care, community, learning"
+    },
+    {
+      "k": "Tools",
+      "v": "Figma · Claude Code · Base44"
+    },
+    {
+      "k": "Currently",
+      "v": "Open to good problems"
+    }
+  ],
+  "industrialDesign": {
+    "heading": "industrial design",
+    "items": [
+      {
+        "id": "id1",
+        "image": null,
+        "title": "piece 01",
+        "desc": "Material, context, or concept — replace with your own description."
+      },
+      {
+        "id": "id2",
+        "image": null,
+        "title": "piece 02",
+        "desc": "Material, context, or concept — replace with your own description."
+      },
+      {
+        "id": "id3",
+        "image": null,
+        "title": "piece 03",
+        "desc": "Material, context, or concept — replace with your own description."
+      },
+      {
+        "id": "id4",
+        "image": null,
+        "title": "piece 04",
+        "desc": "Material, context, or concept — replace with your own description."
+      },
+      {
+        "id": "id5",
+        "image": null,
+        "title": "piece 05",
+        "desc": "Material, context, or concept — replace with your own description."
+      },
+      {
+        "id": "id6",
+        "image": null,
+        "title": "piece 06",
+        "desc": "Material, context, or concept — replace with your own description."
+      }
+    ]
+  },
+  "photosHeading": "Through the lens",
+  "photosSubhead": "(film + digital)",
+  "photos": [
+    {
+      "id": "ph1",
+      "caption": "photo 01 — street, jlm"
+    },
+    {
+      "id": "ph2",
+      "caption": "photo 02 — portrait"
+    },
+    {
+      "id": "ph3",
+      "caption": "photo 03 — texture"
+    },
+    {
+      "id": "ph4",
+      "caption": "photo 04 — light"
+    }
+  ],
+  "footerH1": "Have a good problem? ",
+  "footerH2": "Let's talk.",
+  "links": [
+    {
+      "label": "LinkedIn",
+      "href": "https://linkedin.com/in/eladadler"
+    },
+    {
+      "label": "Behance",
+      "href": "https://behance.net/eladadler"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/eladadler"
+    }
+  ],
+  "copyright": "© 2026 Elad Adler",
+  "locationMeta": "Jerusalem, IL"
+}
