@@ -127,7 +127,7 @@ const DEFAULT = {
   heroIntro2: "This case study presents the design journey: understanding the needs of volunteer matchmakers, shaping intuitive flows, and creating a respectful, culturally aligned experience.",
   heroCtaLabel: "Browse the Web App",
   heroCtaHref: "#",
-  coverImage: null,
+  coverImage: './assets/cs01/hero-phone.jpg',
 
   challengeTitle: "Supporting Tradition with Better Tools",
   challengeIntro: "Matchmaking in this community is not transactional. It is personal, trust-based, and often handled through fragmented tools — notes, spreadsheets, WhatsApp threads, and memory.",
@@ -140,53 +140,53 @@ const DEFAULT = {
   challengeImage: null,
 
   roleText: "I joined the project at an early research stage and led the product from insight to execution — defining the user journey, shaping the experience, and preparing the product for development.",
-  roleImage: null,
+  roleImage: './assets/cs01/role-illustration.jpg',
 
   ecoIntro: "A qualitative study conducted by the organization included 485 singles aged 25–40 from the target community.",
   singlesStat1: "13%", singlesStat1L: "of people aged 30–50 are single",
   singlesStat2: "75%", singlesStat2L: "of singles want society to be more involved in finding solutions",
   singlesStat3: "71%", singlesStat3L: "of singles prefer to meet their partner through family or friends",
-  singlesImage: null,
+  singlesImage: './assets/cs01/singles-charts.jpg',
   mmStat: "48%", mmStatL: "lack of tools results in limited engagement among matchmakers",
-  mmImage: null,
+  mmImage: './assets/cs01/matchmakers-viz.jpg',
 
   insightsMM: ["Know many relevant singles.","Prefer discretion and low visibility.","Are motivated to help.","Lack structured tools to do so effectively."],
   insightsSingles: ["Trust introductions through personal networks.","Want to be represented respectfully."],
 
   personaMMDesc: "The primary users. Volunteers, often from traditional communities, who invest time and care into helping others. They rely on informal tools and are not necessarily tech-oriented.",
   personaMMNeeds: ["A simple, non-intimidating interface.","A tool that supports rather than replaces their judgment.","Clear visual organization across multiple candidates."],
-  personaMMImage: null,
+  personaMMImage: './assets/cs01/personas.jpg',
   personaCandDesc: "The app nickname for the singles. Not direct users, but central to the system. Their presence must be handled with sensitivity.",
   personaCandNeeds: ["Privacy and minimal exposure.","Representation through trusted intermediaries.","Respectful and accurate portrayal."],
-  personaCandImage: null,
+  personaCandImage: './assets/cs01/personas.jpg',
 
   principlesIntro: "This product was designed for a traditional audience that values trust and simplicity over advanced technology. To reduce friction, we focused on a clean and familiar interface, gradual onboarding, light and purposeful gamification, and use of familiar interaction patterns.",
   principlesAvoid: "We intentionally avoided automation and AI-driven matching. Instead, the system supports human judgment, community knowledge, and relationship-based decisions.",
   principles: [
-    {title:"A familiar interface, not AI-driven (MVP).",body:"A clean and familiar interface reduces cognitive load for non-tech users. Every interaction pattern was borrowed from tools they already know.",image:null},
-    {title:"Gamification and a lighthearted atmosphere.",body:"Light, purposeful gamification keeps the experience engaging without trivialising the emotional weight of the work.",image:null},
-    {title:"Relationship-based decision making.",body:"Every match decision is made by a human. The system surfaces information and supports judgment — it never replaces it.",image:null},
+    {title:"A familiar interface, not AI-driven (MVP).",body:"A clean and familiar interface reduces cognitive load for non-tech users. Every interaction pattern was borrowed from tools they already know.",image:'./assets/cs01/principles-phones.jpg'},
+    {title:"Gamification and a lighthearted atmosphere.",body:"Light, purposeful gamification keeps the experience engaging without trivialising the emotional weight of the work.",image:'./assets/cs01/principles-phones.jpg'},
+    {title:"Relationship-based decision making.",body:"Every match decision is made by a human. The system surfaces information and supports judgment — it never replaces it.",image:'./assets/cs01/principles-phones.jpg'},
   ],
 
   ps1Title: "Simplifying Candidate Creation",
   ps1Intro: "Adding a candidate was initially straightforward in structure, but demanding in practice. The process required detailed information that matchmakers often did not have, making it slow and frustrating. User testing confirmed the issue, especially when adding multiple candidates.",
   ps1Explore: "One direction was to let candidates create their own profiles. Pros: reduced workload for matchmakers. Cons: asking candidates to describe themselves felt uncomfortable and culturally misaligned.",
   ps1Solution: "Instead of choosing one approach, we supported both: matchmakers can create profiles themselves, or invite candidates to create their own. Additionally, we enabled reuse and editing of existing profiles. This reduced friction while preserving trust and flexibility.",
-  ps1Image1: null,
-  ps1Image2: null,
+  ps1Image1: './assets/cs01/candidate-phone1.jpg',
+  ps1Image2: './assets/cs01/candidate-phone2.jpg',
 
   pivotTitle: "Wrong Number — Rethinking the Invite Flow",
   pivotChallenge: "To enable a one-click join, matchmakers were required to manually enter phone numbers. We optimized for candidate convenience — at the expense of the matchmaker.",
   pivotInsight: "User testing showed that matchmakers disliked manual entry. It was slow, error-prone, and led to failed invitations. We should have known better.",
   pivotSolution: "We reversed the flow. Instead of entering the candidate's phone number, matchmakers share a dynamic invite link via WhatsApp. The candidate enters their own number.",
   pivotOutcome: ["Fewer errors — people do not mistype their own number.","Higher completion rates.","Better control — matchmakers approve candidates after registration."],
-  pivotImage: null,
+  pivotImage: './assets/cs01/pivot-diagram.jpg',
 
   impactTitle: "Something new is happening",
   impactIntro: "As of February 2026, the product is in beta.",
   impactStats: [{value:"100+",label:"matchmakers"},{value:"200+",label:"candidates on the platform"},{value:"Dozens",label:"of matches made"}],
   impactClosing: "Some have progressed to real-life dates. Still waiting for the first wedding.",
-  impactImage: null,
+  impactImage: './assets/cs01/impact-photo.jpg',
 };
 
 // ─── Main app ─────────────────────────────────────────────────────
