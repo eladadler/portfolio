@@ -556,20 +556,51 @@ function E({ v = '', tag: T = 'span', multi = false, cn = '', st, path }) {
 }
 
 // Replace-image button that overlays on a project image in edit mode
+function compressImage(file, maxPx = 1600, quality = 0.82) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { naturalWidth: w, naturalHeight: h } = img;
+      if (w > maxPx || h > maxPx) {
+        const r = maxPx / Math.max(w, h);
+        w = Math.round(w * r); h = Math.round(h * r);
+      }
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      resolve(c.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
 function ReplaceImgBtn({ path }) {
   const { em, up, flash } = React.useContext(EditCtx);
   const ref = React.useRef(null);
+  const [busy, setBusy] = React.useState(false);
   if (!em) return null;
-  const pick = (e) => {
+  const pick = async (e) => {
     const f = e.target.files[0]; if (!f) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => { up(path, ev.target.result); flash(); };
-    reader.readAsDataURL(f);
     e.target.value = '';
+    setBusy(true);
+    try {
+      const dataUrl = await compressImage(f);
+      up(path, dataUrl); flash();
+    } catch {
+      const reader = new FileReader();
+      reader.onload = (ev) => { up(path, ev.target.result); flash(); };
+      reader.readAsDataURL(f);
+    } finally {
+      setBusy(false);
+    }
   };
   return (
-    <div className="img-replace" onClick={() => ref.current.click()}>
-      <span>↑ Replace image</span>
+    <div className="img-replace" onClick={() => !busy && ref.current.click()}>
+      <span>{busy ? '⏳ Processing…' : '↑ Replace image'}</span>
       <input ref={ref} type="file" accept="image/png,image/jpeg,image/webp,image/avif" hidden onChange={pick} />
     </div>
   );
@@ -934,14 +965,14 @@ function CProjectsSpread({ alternate=true, headingFx, parallax=0 }) {
 function SaveToast({ show }) {
   return (
     <div style={{
-      position:"fixed", top:72, left:"50%", transform:"translateX(-50%)",
+      position:"fixed", top:72, left:"50%",
       background:"rgba(30,32,38,.95)", color:"#e8e8e4", padding:"7px 18px",
       borderRadius:999, fontSize:12, fontWeight:600, fontFamily:"'IBM Plex Mono',monospace",
       letterSpacing:"0.04em", zIndex:9998, pointerEvents:"none",
       boxShadow:"0 4px 16px rgba(0,0,0,.4)",
       opacity: show ? 1 : 0, transform: `translateX(-50%) translateY(${show?0:'-8px'})`,
       transition: "opacity .2s, transform .2s",
-    }}>✓ saved</div>
+    }}>✓ saved locally — click ☁ Push to publish</div>
   );
 }
 
