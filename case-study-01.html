@@ -118,6 +118,8 @@ function ImgSlot({src,alt,path,ratio='16/9',ratioPath,size,sizePath,radius=4,pla
   const [ratioOpen,setRatioOpen] = React.useState(false);
   const [sizeOpen,setSizeOpen] = React.useState(false);
   const [customPx,setCustomPx] = React.useState('');
+  const [customW,setCustomW] = React.useState('');
+  const [customH,setCustomH] = React.useState('');
 
   const pick = async e => {
     const f=e.target.files[0]; if(!f) return; e.target.value=''; setBusy(true);
@@ -125,7 +127,8 @@ function ImgSlot({src,alt,path,ratio='16/9',ratioPath,size,sizePath,radius=4,pla
     catch{const r=new FileReader();r.onload=ev=>{up(path,ev.target.result);flash();};r.readAsDataURL(f);}
     finally{setBusy(false);}
   };
-  const applyRatio = r => { if(ratioPath){up(ratioPath,r);flash();} setRatioOpen(false); };
+  const applyRatio = r => { if(ratioPath){up(ratioPath,r);flash();} setRatioOpen(false); setCustomW(''); setCustomH(''); };
+  const applyCustomRatio = () => { const w=parseFloat(customW),h=parseFloat(customH); if(w>0&&h>0) applyRatio(w+'/'+h); };
   const applySize  = s => { if(sizePath){up(sizePath,s);flash();} setSizeOpen(false); setCustomPx(''); };
   const applyCustom = () => { const n=parseInt(customPx); if(n>0) applySize(n+'px'); };
 
@@ -167,6 +170,16 @@ function ImgSlot({src,alt,path,ratio='16/9',ratioPath,size,sizePath,radius=4,pla
                       {o.label}
                     </button>
                   ))}
+                  <div className="img-size-row">
+                    <input className="img-size-input" type="number" min="1" max="999" placeholder="W"
+                      value={customW} onChange={e=>setCustomW(e.target.value)}
+                      onKeyDown={e=>{if(e.key==='Enter')applyCustomRatio();}}/>
+                    <span style={{color:'rgba(232,232,228,.3)',fontSize:11,alignSelf:'center',flexShrink:0}}>:</span>
+                    <input className="img-size-input" type="number" min="1" max="999" placeholder="H"
+                      value={customH} onChange={e=>setCustomH(e.target.value)}
+                      onKeyDown={e=>{if(e.key==='Enter')applyCustomRatio();}}/>
+                    <button className="img-size-go" onClick={applyCustomRatio}>↵</button>
+                  </div>
                 </div>
               )}
             </div>
