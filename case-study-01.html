@@ -70,6 +70,7 @@ function setIn(obj, path, val) {
   if (!path||!path.length) return val;
   const [h,...rest] = path;
   if (Array.isArray(obj)){const a=[...obj];a[h]=setIn(a[h],rest,val);return a;}
+  if (typeof h === 'number'){const a=Array.isArray(obj)?[...obj]:[];a[h]=setIn(a[h],rest,val);return a;}
   return {...obj,[h]:setIn(obj?obj[h]:undefined,rest,val)};
 }
 
