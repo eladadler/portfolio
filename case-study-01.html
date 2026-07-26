@@ -170,15 +170,20 @@ function ImgSlot({src,alt,path,ratio='16/9',ratioPath,size,sizePath,radius=4,pla
                       {o.label}
                     </button>
                   ))}
-                  <div className="img-size-row">
-                    <input className="img-size-input" type="number" min="1" max="999" placeholder="W"
-                      value={customW} onChange={e=>setCustomW(e.target.value)}
-                      onKeyDown={e=>{if(e.key==='Enter')applyCustomRatio();}}/>
-                    <span style={{color:'rgba(232,232,228,.3)',fontSize:11,alignSelf:'center',flexShrink:0}}>:</span>
-                    <input className="img-size-input" type="number" min="1" max="999" placeholder="H"
-                      value={customH} onChange={e=>setCustomH(e.target.value)}
-                      onKeyDown={e=>{if(e.key==='Enter')applyCustomRatio();}}/>
-                    <button className="img-size-go" onClick={applyCustomRatio}>↵</button>
+                  <div className="img-custom-ratio">
+                    <div className="img-custom-ratio-row">
+                      <label className="img-custom-lbl">W</label>
+                      <input className="img-size-input" type="number" min="1" max="999" placeholder="e.g. 16"
+                        value={customW} onChange={e=>setCustomW(e.target.value)}
+                        onKeyDown={e=>{if(e.key==='Enter')applyCustomRatio();}}/>
+                    </div>
+                    <div className="img-custom-ratio-row">
+                      <label className="img-custom-lbl">H</label>
+                      <input className="img-size-input" type="number" min="1" max="999" placeholder="e.g. 9"
+                        value={customH} onChange={e=>setCustomH(e.target.value)}
+                        onKeyDown={e=>{if(e.key==='Enter')applyCustomRatio();}}/>
+                    </div>
+                    <button className="img-size-go" style={{width:'100%'}} onClick={applyCustomRatio}>Apply ↵</button>
                   </div>
                 </div>
               )}
@@ -844,11 +849,14 @@ const CSS = `
   /* Image pickers (ratio + size) */
   .img-ratio-btn{appearance:none;border:none;background:rgba(20,21,25,.82);backdrop-filter:blur(6px);color:rgba(232,232,228,.8);font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.06em;padding:5px 9px;border-radius:6px;cursor:pointer;border:1px solid rgba(232,232,228,.15);transition:background .15s,color .15s;white-space:nowrap;}
   .img-ratio-btn:hover{background:rgba(113,132,255,.25);color:#fff;border-color:rgba(113,132,255,.4);}
-  .img-ratio-panel{position:absolute;top:calc(100% + 4px);left:0;background:rgba(20,21,25,.96);backdrop-filter:blur(12px);border:1px solid rgba(232,232,228,.15);border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:3px;min-width:80px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:30;}
+  .img-ratio-panel{position:absolute;top:calc(100% + 4px);left:0;background:rgba(20,21,25,.96);backdrop-filter:blur(12px);border:1px solid rgba(232,232,228,.15);border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:3px;min-width:160px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:30;}
   .img-ratio-opt{appearance:none;border:none;background:transparent;color:rgba(232,232,228,.6);font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.05em;padding:7px 12px;border-radius:5px;cursor:pointer;text-align:left;transition:background .12s,color .12s;}
   .img-ratio-opt:hover{background:rgba(113,132,255,.18);color:var(--accent);}
   .img-ratio-opt.active{background:rgba(113,132,255,.2);color:var(--accent);font-weight:700;}
   .img-size-row{display:flex;gap:5px;padding:8px 6px 4px;border-top:1px solid rgba(232,232,228,.12);margin-top:4px;align-items:center;}
+  .img-custom-ratio{padding:8px 4px 4px;border-top:1px solid rgba(232,232,228,.12);margin-top:4px;display:flex;flex-direction:column;gap:6px;}
+  .img-custom-ratio-row{display:flex;align-items:center;gap:8px;}
+  .img-custom-lbl{font:700 10px/1 'IBM Plex Mono',monospace;color:rgba(232,232,228,.45);letter-spacing:.1em;width:12px;flex-shrink:0;}
   .img-size-input{flex:1;min-width:0;background:rgba(232,232,228,.14);border:1px solid rgba(232,232,228,.3);border-radius:5px;color:#fff;font:600 12px/1 'IBM Plex Mono',monospace;padding:7px 8px;outline:none;width:100%;text-align:center;}
   .img-size-input:focus{border-color:var(--accent);background:rgba(113,132,255,.15);}
   .img-size-input::placeholder{color:rgba(232,232,228,.45);font-weight:400;}
