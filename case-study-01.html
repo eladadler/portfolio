@@ -56,7 +56,8 @@ function compressImage(file, maxPx=1600, q=0.82) {
       if (w>maxPx||h>maxPx){const r=maxPx/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}
       const c=document.createElement('canvas'); c.width=w; c.height=h;
       c.getContext('2d').drawImage(img,0,0,w,h);
-      resolve(c.toDataURL('image/jpeg',q));
+      const fmt = file.type==='image/png' ? 'image/webp' : 'image/jpeg';
+      resolve(c.toDataURL(fmt,q));
     };
     img.onerror=reject; img.src=url;
   });
