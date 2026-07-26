@@ -253,13 +253,12 @@ const DEFAULT = {
   singlesStat1: "13%", singlesStat1L: "of people aged 30–50 are single",
   singlesStat2: "75%", singlesStat2L: "of singles want society to be more involved in finding solutions",
   singlesStat3: "71%", singlesStat3L: "of singles prefer to meet their partner through family or friends",
-  singlesImage: './assets/cs01/singles-charts.jpg',
-  singlesImageRatio: '16/6',
-  singlesImageSize: '100%',
-  mmStat: "48%", mmStatL: "lack of tools results in limited engagement among matchmakers",
-  mmImage: './assets/cs01/matchmakers-viz.jpg',
-  mmImageRatio: '16/7',
-  mmImageSize: '100%',
+  ecoDesktopImage: './assets/cs01/desktop.jpg',
+  ecoDesktopRatio: '2536/5566',
+  ecoDesktopSize: '100%',
+  ecoMobileImage: './assets/cs01/mobile.jpg',
+  ecoMobileRatio: '750/6238',
+  ecoMobileSize: '100%',
 
   insightsMM: ["Know many relevant singles.","Prefer discretion and low visibility.","Are motivated to help.","Lack structured tools to do so effectively."],
   insightsSingles: ["Trust introductions through personal networks.","Want to be represented respectfully."],
@@ -522,39 +521,19 @@ function EcosystemSection({d}) {
       <h2 className="cs-h2">Understanding the Ecosystem</h2>
       <E v={d.ecoIntro} tag="p" multi path={['ecoIntro']} cn="cs-body" st={{marginTop:16,maxWidth:'52ch'}}/>
 
-      {/* The Singles */}
-      <div className="cs-eco-block">
-        <div className="cs-eco-tag mono">THE SINGLES</div>
-        <div className="cs-stats-row">
-          <div className="cs-big-stat">
-            <E v={d.singlesStat1} tag="div" path={['singlesStat1']} cn="cs-stat-val"/>
-            <E v={d.singlesStat1L} tag="div" path={['singlesStat1L']} cn="cs-stat-label mono"/>
-          </div>
-          <div className="cs-big-stat">
-            <E v={d.singlesStat2} tag="div" path={['singlesStat2']} cn="cs-stat-val"/>
-            <E v={d.singlesStat2L} tag="div" path={['singlesStat2L']} cn="cs-stat-label mono"/>
-          </div>
-          <div className="cs-big-stat">
-            <E v={d.singlesStat3} tag="div" path={['singlesStat3']} cn="cs-stat-val"/>
-            <E v={d.singlesStat3L} tag="div" path={['singlesStat3L']} cn="cs-stat-label mono"/>
-          </div>
+      {/* Responsive data image — desktop on wide, mobile on narrow */}
+      <div style={{marginTop:48}}>
+        <div className="cs-eco-desktop-img">
+          <ImgSlot src={d.ecoDesktopImage} path={['ecoDesktopImage']}
+            ratio={d.ecoDesktopRatio||'2536/5566'} ratioPath={['ecoDesktopRatio']}
+            size={d.ecoDesktopSize} sizePath={['ecoDesktopSize']}
+            radius={8} placeholder="ecosystem — desktop version"/>
         </div>
-        <div style={{marginTop:32}}>
-          <ImgSlot src={d.singlesImage} path={['singlesImage']} ratio={d.singlesImageRatio||'16/6'} ratioPath={['singlesImageRatio']} size={d.singlesImageSize} sizePath={['singlesImageSize']} placeholder="singles — research chart / visual"/>
-        </div>
-      </div>
-
-      {/* The Matchmakers */}
-      <div className="cs-eco-block">
-        <div className="cs-eco-tag mono">THE MATCHMAKERS</div>
-        <div className="cs-two-col" style={{alignItems:'center'}}>
-          <div>
-            <div className="cs-big-stat">
-              <E v={d.mmStat} tag="div" path={['mmStat']} cn="cs-stat-val cs-stat-val-xl"/>
-              <E v={d.mmStatL} tag="div" path={['mmStatL']} cn="cs-stat-label mono" st={{marginTop:10,maxWidth:'28ch'}}/>
-            </div>
-          </div>
-          <ImgSlot src={d.mmImage} path={['mmImage']} ratio={d.mmImageRatio||'16/7'} ratioPath={['mmImageRatio']} size={d.mmImageSize} sizePath={['mmImageSize']} placeholder="matchmakers — people illustration"/>
+        <div className="cs-eco-mobile-img">
+          <ImgSlot src={d.ecoMobileImage} path={['ecoMobileImage']}
+            ratio={d.ecoMobileRatio||'750/6238'} ratioPath={['ecoMobileRatio']}
+            size={d.ecoMobileSize} sizePath={['ecoMobileSize']}
+            radius={8} placeholder="ecosystem — mobile version"/>
         </div>
       </div>
 
@@ -782,6 +761,11 @@ const CSS = `
   /* Two column */
   .cs-two-col{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:36px;}
   .cs-two-col-rev{grid-template-columns:auto 1fr;}
+
+  /* Ecosystem responsive images */
+  .cs-eco-desktop-img{display:block;}
+  .cs-eco-mobile-img{display:none;}
+  @media(max-width:900px){.cs-eco-desktop-img{display:none;}.cs-eco-mobile-img{display:block;}}
 
   /* Ecosystem */
   .cs-eco-block{margin-top:56px;}
