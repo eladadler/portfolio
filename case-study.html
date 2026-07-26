@@ -304,17 +304,35 @@ function CaseStudyApp() {
           <span className="cs-num">{id}</span>
           <span className="cs-proj-title">{title}</span>
         </div>
-        <h1 className="cs-hero-h1">
-          <E v={cs.heroSub} tag="span" path={['heroSub']}/>
-        </h1>
-        <div className="cs-cover" style={{position:"relative"}}>
+        {!cs.imageOnly && (
+          <h1 className="cs-hero-h1">
+            <E v={cs.heroSub} tag="span" path={['heroSub']}/>
+          </h1>
+        )}
+        {!cs.imageOnly && (
+          <div className="cs-cover" style={{position:"relative"}}>
+            {cs.coverImage
+              ? <img src={cs.coverImage} alt={title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+              : <div className="cs-cover-placeholder mono">[ drop cover image — {title} ]</div>
+            }
+            <ReplaceImgBtn path={['coverImage']}/>
+          </div>
+        )}
+      </section>
+
+      {/* Image-only mode: full natural image replacing all sections */}
+      {cs.imageOnly && (
+        <div style={{position:"relative"}}>
           {cs.coverImage
-            ? <img src={cs.coverImage} alt={title} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
-            : <div className="cs-cover-placeholder mono">[ drop cover image — {title} ]</div>
+            ? <img src={cs.coverImage} alt={title} style={{width:"100%",height:"auto",display:"block"}}/>
+            : <div className="cs-cover-placeholder mono" style={{aspectRatio:"4/3"}}>[ drop image — {title} ]</div>
           }
           <ReplaceImgBtn path={['coverImage']}/>
         </div>
-      </section>
+      )}
+
+      {/* Standard sections — hidden in imageOnly mode */}
+      {!cs.imageOnly && <>
 
       {/* Overview + Stats */}
       <section className="cs-overview">
@@ -376,6 +394,8 @@ function CaseStudyApp() {
         <div className="cs-label mono">THE OUTCOME</div>
         <E v={cs.outcome} tag="p" multi path={['outcome']} cn="cs-body-large cs-outcome-text"/>
       </section>
+
+      </>}
 
       {/* Footer nav */}
       <footer className="cs-footer mono">

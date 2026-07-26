@@ -279,6 +279,7 @@
     "03": {
       "heroSub": "Medication management for a Jerusalem Soteria house — from 5% errors to zero",
       "coverImage": "./assets/balance.jpg",
+      "imageOnly": true,
       "overview": "Balance is a medication tracking system designed for a supportive living environment in Jerusalem. The existing process — handwritten logs and verbal handoffs — produced a 5% error rate. The redesign brought it to 0%.",
       "challenge": "Three distinct user personas (residents, house staff, and a supervising clinician) all interact with the medication process differently. A single interface could not serve all three — the system needed to adapt to each role without adding complexity.",
       "process": [
