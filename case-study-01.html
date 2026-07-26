@@ -99,20 +99,40 @@ const RATIO_OPTS = [
   {label:'9:16', val:'9/16'},
 ];
 
-function ImgSlot({src,alt,path,ratio='16/9',ratioPath,radius=4,placeholder}) {
+const SIZE_PRESETS = [
+  {label:'Very large', val:'100%'},
+  {label:'Large',      val:'75%'},
+  {label:'Medium',     val:'50%'},
+  {label:'Small',      val:'33%'},
+];
+
+function sizeLabel(s) {
+  const p = SIZE_PRESETS.find(o => o.val === (s||'100%'));
+  return p ? p.label.split(' ').pop() : s;
+}
+
+function ImgSlot({src,alt,path,ratio='16/9',ratioPath,size,sizePath,radius=4,placeholder}) {
   const {em,up,flash} = React.useContext(EditCtx);
   const ref = React.useRef(null);
   const [busy,setBusy] = React.useState(false);
-  const [pickerOpen,setPickerOpen] = React.useState(false);
+  const [ratioOpen,setRatioOpen] = React.useState(false);
+  const [sizeOpen,setSizeOpen] = React.useState(false);
+  const [customPx,setCustomPx] = React.useState('');
+
   const pick = async e => {
     const f=e.target.files[0]; if(!f) return; e.target.value=''; setBusy(true);
     try{const d=await compressImage(f);up(path,d);flash();}
     catch{const r=new FileReader();r.onload=ev=>{up(path,ev.target.result);flash();};r.readAsDataURL(f);}
     finally{setBusy(false);}
   };
-  const setRatio = r => { if(ratioPath){up(ratioPath,r);flash();} setPickerOpen(false); };
+  const applyRatio = r => { if(ratioPath){up(ratioPath,r);flash();} setRatioOpen(false); };
+  const applySize  = s => { if(sizePath){up(sizePath,s);flash();} setSizeOpen(false); setCustomPx(''); };
+  const applyCustom = () => { const n=parseInt(customPx); if(n>0) applySize(n+'px'); };
+
+  const effectiveSize = size || '100%';
+
   return (
-    <div style={{position:'relative',width:'100%'}}>
+    <div style={{position:'relative',width:effectiveSize,maxWidth:'100%'}}>
       <div style={{position:'relative',aspectRatio:ratio,background:'#1E2026',borderRadius:radius,overflow:'hidden',width:'100%'}}>
         {src
           ? <img src={src} alt={alt||''} style={{width:'100%',height:'100%',objectFit:'cover',display:'block',borderRadius:radius}}/>
@@ -130,22 +150,52 @@ function ImgSlot({src,alt,path,ratio='16/9',ratioPath,radius=4,placeholder}) {
         )}
         <input ref={ref} type="file" accept="image/png,image/jpeg,image/webp,image/avif" hidden onChange={pick}/>
       </div>
-      {em && ratioPath && (
-        <div style={{position:'absolute',top:8,left:8,zIndex:20}} onClick={e=>e.stopPropagation()}>
-          <button className="img-ratio-btn" onClick={()=>setPickerOpen(v=>!v)}
-            title="Change aspect ratio">
-            ⤢ {ratio.replace('/',':')}
-          </button>
-          {pickerOpen && (
-            <div className="img-ratio-panel">
-              {RATIO_OPTS.map(o=>(
-                <button key={o.val} className={'img-ratio-opt'+(ratio===o.val?' active':'')}
-                  onClick={()=>setRatio(o.val)}>
-                  {o.label}
-                </button>
-              ))}
+
+      {em && (ratioPath||sizePath) && (
+        <div style={{position:'absolute',top:8,left:8,display:'flex',gap:4,zIndex:20}} onClick={e=>e.stopPropagation()}>
+
+          {/* Ratio picker */}
+          {ratioPath && (
+            <div style={{position:'relative'}}>
+              <button className="img-ratio-btn" onClick={()=>{setRatioOpen(v=>!v);setSizeOpen(false);}}>
+                ⤢ {ratio.replace('/',':')}
+              </button>
+              {ratioOpen && (
+                <div className="img-ratio-panel">
+                  {RATIO_OPTS.map(o=>(
+                    <button key={o.val} className={'img-ratio-opt'+(ratio===o.val?' active':'')} onClick={()=>applyRatio(o.val)}>
+                      {o.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           )}
+
+          {/* Size picker */}
+          {sizePath && (
+            <div style={{position:'relative'}}>
+              <button className="img-ratio-btn" onClick={()=>{setSizeOpen(v=>!v);setRatioOpen(false);}}>
+                ↔ {sizeLabel(size)}
+              </button>
+              {sizeOpen && (
+                <div className="img-ratio-panel" style={{minWidth:130}}>
+                  {SIZE_PRESETS.map(o=>(
+                    <button key={o.val} className={'img-ratio-opt'+(effectiveSize===o.val?' active':'')} onClick={()=>applySize(o.val)}>
+                      {o.label}
+                    </button>
+                  ))}
+                  <div className="img-size-row">
+                    <input className="img-size-input" type="number" min="40" max="2400" placeholder="px"
+                      value={customPx} onChange={e=>setCustomPx(e.target.value)}
+                      onKeyDown={e=>{if(e.key==='Enter')applyCustom();}}/>
+                    <button className="img-size-go" onClick={applyCustom}>↵</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
         </div>
       )}
     </div>
@@ -161,6 +211,7 @@ const DEFAULT = {
   heroCtaHref: "#",
   coverImage: './assets/cs01/hero-phone.jpg',
   coverImageRatio: '9/16',
+  coverImageSize: '100%',
 
   challengeTitle: "Supporting Tradition with Better Tools",
   challengeIntro: "Matchmaking in this community is not transactional. It is personal, trust-based, and often handled through fragmented tools — notes, spreadsheets, WhatsApp threads, and memory.",
@@ -172,10 +223,12 @@ const DEFAULT = {
   ],
   challengeImage: null,
   challengeImageRatio: '4/3',
+  challengeImageSize: '100%',
 
   roleText: "I joined the project at an early research stage and led the product from insight to execution — defining the user journey, shaping the experience, and preparing the product for development.",
   roleImage: './assets/cs01/role-illustration.jpg',
   roleImageRatio: '1/1',
+  roleImageSize: '100%',
 
   ecoIntro: "A qualitative study conducted by the organization included 485 singles aged 25–40 from the target community.",
   singlesStat1: "13%", singlesStat1L: "of people aged 30–50 are single",
@@ -183,9 +236,11 @@ const DEFAULT = {
   singlesStat3: "71%", singlesStat3L: "of singles prefer to meet their partner through family or friends",
   singlesImage: './assets/cs01/singles-charts.jpg',
   singlesImageRatio: '16/6',
+  singlesImageSize: '100%',
   mmStat: "48%", mmStatL: "lack of tools results in limited engagement among matchmakers",
   mmImage: './assets/cs01/matchmakers-viz.jpg',
   mmImageRatio: '16/7',
+  mmImageSize: '100%',
 
   insightsMM: ["Know many relevant singles.","Prefer discretion and low visibility.","Are motivated to help.","Lack structured tools to do so effectively."],
   insightsSingles: ["Trust introductions through personal networks.","Want to be represented respectfully."],
@@ -194,17 +249,19 @@ const DEFAULT = {
   personaMMNeeds: ["A simple, non-intimidating interface.","A tool that supports rather than replaces their judgment.","Clear visual organization across multiple candidates."],
   personaMMImage: './assets/cs01/personas.jpg',
   personaMMImageRatio: '1/1',
+  personaMMImageSize: '100%',
   personaCandDesc: "The app nickname for the singles. Not direct users, but central to the system. Their presence must be handled with sensitivity.",
   personaCandNeeds: ["Privacy and minimal exposure.","Representation through trusted intermediaries.","Respectful and accurate portrayal."],
   personaCandImage: './assets/cs01/personas.jpg',
   personaCandImageRatio: '1/1',
+  personaCandImageSize: '100%',
 
   principlesIntro: "This product was designed for a traditional audience that values trust and simplicity over advanced technology. To reduce friction, we focused on a clean and familiar interface, gradual onboarding, light and purposeful gamification, and use of familiar interaction patterns.",
   principlesAvoid: "We intentionally avoided automation and AI-driven matching. Instead, the system supports human judgment, community knowledge, and relationship-based decisions.",
   principles: [
-    {title:"A familiar interface, not AI-driven (MVP).",body:"A clean and familiar interface reduces cognitive load for non-tech users. Every interaction pattern was borrowed from tools they already know.",image:'./assets/cs01/principles-phones.jpg',imageRatio:'4/3'},
-    {title:"Gamification and a lighthearted atmosphere.",body:"Light, purposeful gamification keeps the experience engaging without trivialising the emotional weight of the work.",image:'./assets/cs01/principles-phones.jpg',imageRatio:'4/3'},
-    {title:"Relationship-based decision making.",body:"Every match decision is made by a human. The system surfaces information and supports judgment — it never replaces it.",image:'./assets/cs01/principles-phones.jpg',imageRatio:'4/3'},
+    {title:"A familiar interface, not AI-driven (MVP).",body:"A clean and familiar interface reduces cognitive load for non-tech users. Every interaction pattern was borrowed from tools they already know.",image:'./assets/cs01/principles-phones.jpg',imageRatio:'4/3',imageSize:'100%'},
+    {title:"Gamification and a lighthearted atmosphere.",body:"Light, purposeful gamification keeps the experience engaging without trivialising the emotional weight of the work.",image:'./assets/cs01/principles-phones.jpg',imageRatio:'4/3',imageSize:'100%'},
+    {title:"Relationship-based decision making.",body:"Every match decision is made by a human. The system surfaces information and supports judgment — it never replaces it.",image:'./assets/cs01/principles-phones.jpg',imageRatio:'4/3',imageSize:'100%'},
   ],
 
   ps1Title: "Simplifying Candidate Creation",
@@ -213,8 +270,10 @@ const DEFAULT = {
   ps1Solution: "Instead of choosing one approach, we supported both: matchmakers can create profiles themselves, or invite candidates to create their own. Additionally, we enabled reuse and editing of existing profiles. This reduced friction while preserving trust and flexibility.",
   ps1Image1: './assets/cs01/candidate-phone1.jpg',
   ps1Image1Ratio: '9/16',
+  ps1Image1Size: '100%',
   ps1Image2: './assets/cs01/candidate-phone2.jpg',
   ps1Image2Ratio: '9/16',
+  ps1Image2Size: '100%',
 
   pivotTitle: "Wrong Number — Rethinking the Invite Flow",
   pivotChallenge: "To enable a one-click join, matchmakers were required to manually enter phone numbers. We optimized for candidate convenience — at the expense of the matchmaker.",
@@ -223,6 +282,7 @@ const DEFAULT = {
   pivotOutcome: ["Fewer errors — people do not mistype their own number.","Higher completion rates.","Better control — matchmakers approve candidates after registration."],
   pivotImage: './assets/cs01/pivot-diagram.jpg',
   pivotImageRatio: '3/4',
+  pivotImageSize: '100%',
 
   impactTitle: "Something new is happening",
   impactIntro: "As of February 2026, the product is in beta.",
@@ -391,7 +451,7 @@ function HeroSection({d}) {
         }
       </div>
       <div className="cs-hero-img">
-        <ImgSlot src={d.coverImage} path={['coverImage']} ratio={d.coverImageRatio||'9/16'} ratioPath={['coverImageRatio']} radius={8} placeholder="hero — app mockup"/>
+        <ImgSlot src={d.coverImage} path={['coverImage']} ratio={d.coverImageRatio||'9/16'} ratioPath={['coverImageRatio']} size={d.coverImageSize} sizePath={['coverImageSize']} radius={8} placeholder="hero — app mockup"/>
       </div>
     </section>
   );
@@ -413,7 +473,7 @@ function ChallengeSection({d}) {
           </ul>
         </div>
         <div className="cs-two-col-img">
-          <ImgSlot src={d.challengeImage} path={['challengeImage']} ratio={d.challengeImageRatio||'4/3'} ratioPath={['challengeImageRatio']} placeholder="challenge — supporting image"/>
+          <ImgSlot src={d.challengeImage} path={['challengeImage']} ratio={d.challengeImageRatio||'4/3'} ratioPath={['challengeImageRatio']} size={d.challengeImageSize} sizePath={['challengeImageSize']} placeholder="challenge — supporting image"/>
         </div>
       </div>
     </section>
@@ -426,7 +486,7 @@ function RoleSection({d}) {
       <div className="cs-section-label mono">MY ROLE</div>
       <div className="cs-two-col cs-two-col-rev">
         <div className="cs-two-col-img" style={{maxWidth:220}}>
-          <ImgSlot src={d.roleImage} path={['roleImage']} ratio={d.roleImageRatio||'1/1'} ratioPath={['roleImageRatio']} radius={999} placeholder="your photo"/>
+          <ImgSlot src={d.roleImage} path={['roleImage']} ratio={d.roleImageRatio||'1/1'} ratioPath={['roleImageRatio']} size={d.roleImageSize} sizePath={['roleImageSize']} radius={999} placeholder="your photo"/>
         </div>
         <div className="cs-two-col-text">
           <E v={d.roleText} tag="p" multi path={['roleText']} cn="cs-body-large"/>
@@ -461,7 +521,7 @@ function EcosystemSection({d}) {
           </div>
         </div>
         <div style={{marginTop:32}}>
-          <ImgSlot src={d.singlesImage} path={['singlesImage']} ratio={d.singlesImageRatio||'16/6'} ratioPath={['singlesImageRatio']} placeholder="singles — research chart / visual"/>
+          <ImgSlot src={d.singlesImage} path={['singlesImage']} ratio={d.singlesImageRatio||'16/6'} ratioPath={['singlesImageRatio']} size={d.singlesImageSize} sizePath={['singlesImageSize']} placeholder="singles — research chart / visual"/>
         </div>
       </div>
 
@@ -475,7 +535,7 @@ function EcosystemSection({d}) {
               <E v={d.mmStatL} tag="div" path={['mmStatL']} cn="cs-stat-label mono" st={{marginTop:10,maxWidth:'28ch'}}/>
             </div>
           </div>
-          <ImgSlot src={d.mmImage} path={['mmImage']} ratio={d.mmImageRatio||'16/7'} ratioPath={['mmImageRatio']} placeholder="matchmakers — people illustration"/>
+          <ImgSlot src={d.mmImage} path={['mmImage']} ratio={d.mmImageRatio||'16/7'} ratioPath={['mmImageRatio']} size={d.mmImageSize} sizePath={['mmImageSize']} placeholder="matchmakers — people illustration"/>
         </div>
       </div>
 
@@ -512,7 +572,7 @@ function PersonasSection({d}) {
         {/* Matchmakers */}
         <div className="cs-persona cs-persona-circle">
           <div className="cs-persona-img-wrap cs-persona-circle-frame">
-            <ImgSlot src={d.personaMMImage} path={['personaMMImage']} ratio={d.personaMMImageRatio||'1/1'} ratioPath={['personaMMImageRatio']} radius={999} placeholder="matchmaker persona"/>
+            <ImgSlot src={d.personaMMImage} path={['personaMMImage']} ratio={d.personaMMImageRatio||'1/1'} ratioPath={['personaMMImageRatio']} size={d.personaMMImageSize} sizePath={['personaMMImageSize']} radius={999} placeholder="matchmaker persona"/>
           </div>
           <div className="cs-persona-body">
             <div className="cs-eco-tag mono" style={{marginBottom:12}}>THE MATCHMAKERS</div>
@@ -528,7 +588,7 @@ function PersonasSection({d}) {
         {/* Candidate */}
         <div className="cs-persona cs-persona-square">
           <div className="cs-persona-img-wrap cs-persona-square-frame">
-            <ImgSlot src={d.personaCandImage} path={['personaCandImage']} ratio={d.personaCandImageRatio||'1/1'} ratioPath={['personaCandImageRatio']} radius={4} placeholder="candidate persona"/>
+            <ImgSlot src={d.personaCandImage} path={['personaCandImage']} ratio={d.personaCandImageRatio||'1/1'} ratioPath={['personaCandImageRatio']} size={d.personaCandImageSize} sizePath={['personaCandImageSize']} radius={4} placeholder="candidate persona"/>
           </div>
           <div className="cs-persona-body">
             <div className="cs-eco-tag mono" style={{marginBottom:12}}>THE CANDIDATE</div>
@@ -556,7 +616,7 @@ function PrinciplesSection({d}) {
       <div className="cs-principles-grid">
         {d.principles.map((p,i)=>(
           <div key={i} className="cs-principle-card">
-            <ImgSlot src={p.image} path={['principles',i,'image']} ratio={p.imageRatio||'4/3'} ratioPath={['principles',i,'imageRatio']} placeholder={"principle "+(i+1)+" screenshot"}/>
+            <ImgSlot src={p.image} path={['principles',i,'image']} ratio={p.imageRatio||'4/3'} ratioPath={['principles',i,'imageRatio']} size={p.imageSize} sizePath={['principles',i,'imageSize']} placeholder={"principle "+(i+1)+" screenshot"}/>
             <div style={{padding:'24px 20px 20px'}}>
               <E v={p.title} tag="h4" path={['principles',i,'title']} cn="cs-principle-title"/>
               <E v={p.body} tag="p" multi path={['principles',i,'body']} cn="cs-principle-body"/>
@@ -586,8 +646,8 @@ function PS1Section({d}) {
           </div>
         </div>
         <div style={{display:'flex',flexDirection:'column',gap:16}}>
-          <ImgSlot src={d.ps1Image1} path={['ps1Image1']} ratio={d.ps1Image1Ratio||'9/16'} ratioPath={['ps1Image1Ratio']} placeholder="candidate creation — before screen"/>
-          <ImgSlot src={d.ps1Image2} path={['ps1Image2']} ratio={d.ps1Image2Ratio||'9/16'} ratioPath={['ps1Image2Ratio']} placeholder="candidate creation — after screen"/>
+          <ImgSlot src={d.ps1Image1} path={['ps1Image1']} ratio={d.ps1Image1Ratio||'9/16'} ratioPath={['ps1Image1Ratio']} size={d.ps1Image1Size} sizePath={['ps1Image1Size']} placeholder="candidate creation — before screen"/>
+          <ImgSlot src={d.ps1Image2} path={['ps1Image2']} ratio={d.ps1Image2Ratio||'9/16'} ratioPath={['ps1Image2Ratio']} size={d.ps1Image2Size} sizePath={['ps1Image2Size']} placeholder="candidate creation — after screen"/>
         </div>
       </div>
     </section>
@@ -622,7 +682,7 @@ function PivotSection({d}) {
             </ul>
           </div>
         </div>
-        <ImgSlot src={d.pivotImage} path={['pivotImage']} ratio={d.pivotImageRatio||'3/4'} ratioPath={['pivotImageRatio']} placeholder="invite flow — before & after"/>
+        <ImgSlot src={d.pivotImage} path={['pivotImage']} ratio={d.pivotImageRatio||'3/4'} ratioPath={['pivotImageRatio']} size={d.pivotImageSize} sizePath={['pivotImageSize']} placeholder="invite flow — before & after"/>
       </div>
     </section>
   );
@@ -768,13 +828,19 @@ const CSS = `
   /* Role */
   .cs-role .cs-two-col-img{display:flex;justify-content:center;}
 
-  /* Ratio picker */
+  /* Image pickers (ratio + size) */
   .img-ratio-btn{appearance:none;border:none;background:rgba(20,21,25,.82);backdrop-filter:blur(6px);color:rgba(232,232,228,.8);font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.06em;padding:5px 9px;border-radius:6px;cursor:pointer;border:1px solid rgba(232,232,228,.15);transition:background .15s,color .15s;white-space:nowrap;}
   .img-ratio-btn:hover{background:rgba(113,132,255,.25);color:#fff;border-color:rgba(113,132,255,.4);}
   .img-ratio-panel{position:absolute;top:calc(100% + 4px);left:0;background:rgba(20,21,25,.96);backdrop-filter:blur(12px);border:1px solid rgba(232,232,228,.15);border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:3px;min-width:80px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:30;}
   .img-ratio-opt{appearance:none;border:none;background:transparent;color:rgba(232,232,228,.6);font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.05em;padding:7px 12px;border-radius:5px;cursor:pointer;text-align:left;transition:background .12s,color .12s;}
   .img-ratio-opt:hover{background:rgba(113,132,255,.18);color:var(--accent);}
   .img-ratio-opt.active{background:rgba(113,132,255,.2);color:var(--accent);font-weight:700;}
+  .img-size-row{display:flex;gap:4px;padding:6px 6px 2px;border-top:1px solid rgba(232,232,228,.08);margin-top:4px;}
+  .img-size-input{flex:1;min-width:0;background:rgba(232,232,228,.07);border:1px solid rgba(232,232,228,.15);border-radius:5px;color:var(--ink);font:500 11px/1 'IBM Plex Mono',monospace;padding:6px 8px;outline:none;width:100%;}
+  .img-size-input:focus{border-color:var(--accent);background:rgba(113,132,255,.08);}
+  .img-size-input::placeholder{color:rgba(232,232,228,.3);}
+  .img-size-go{appearance:none;border:none;background:var(--accent);color:#fff;font:700 11px/1 'IBM Plex Mono',monospace;padding:6px 9px;border-radius:5px;cursor:pointer;transition:background .15s;flex-shrink:0;}
+  .img-size-go:hover{background:#97A4FF;}
 
   /* Footer */
   .cs-foot{display:flex;justify-content:space-between;align-items:center;padding:40px 80px;border-top:1px solid var(--border);font-size:12px;letter-spacing:.06em;}
