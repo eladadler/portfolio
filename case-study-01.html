@@ -277,11 +277,12 @@ const DEFAULT = {
 
   principlesIntro: "This product was designed for a traditional audience that values trust and simplicity over advanced technology. To reduce friction, we focused on a clean and familiar interface, gradual onboarding, light and purposeful gamification, and use of familiar interaction patterns.",
   principlesAvoid: "We intentionally avoided automation and AI-driven matching. Instead, the system supports human judgment, community knowledge, and relationship-based decisions.",
-  principles: [
-    {title:"A familiar interface, not AI-driven (MVP).",body:"A clean and familiar interface reduces cognitive load for non-tech users. Every interaction pattern was borrowed from tools they already know.",image:'./assets/cs01/principles-phones.jpg',imageRatio:'4/3',imageSize:'100%'},
-    {title:"Gamification and a lighthearted atmosphere.",body:"Light, purposeful gamification keeps the experience engaging without trivialising the emotional weight of the work.",image:'./assets/cs01/principles-phones.jpg',imageRatio:'4/3',imageSize:'100%'},
-    {title:"Relationship-based decision making.",body:"Every match decision is made by a human. The system surfaces information and supports judgment — it never replaces it.",image:'./assets/cs01/principles-phones.jpg',imageRatio:'4/3',imageSize:'100%'},
-  ],
+  principlesDesktopImage: './assets/design-principles-desktop.jpg',
+  principlesDesktopRatio: '2560/3044',
+  principlesDesktopSize: '100%',
+  principlesMobileImage: './assets/design-principles-mobile.jpg',
+  principlesMobileRatio: '750/5556',
+  principlesMobileSize: '100%',
 
   ps1Title: "Simplifying Candidate Creation",
   ps1Intro: "Adding a candidate was initially straightforward in structure, but demanding in practice. The process required detailed information that matchmakers often did not have, making it slow and frustrating. User testing confirmed the issue, especially when adding multiple candidates.",
@@ -606,19 +607,19 @@ function PrinciplesSection({d}) {
   return (
     <section className="cs-section cs-principles-section">
       <div className="cs-section-label mono">DESIGN PRINCIPLES</div>
-      <h2 className="cs-h2">Designing for Tradition</h2>
-      <E v={d.principlesIntro} tag="p" multi path={['principlesIntro']} cn="cs-body" st={{marginTop:16,maxWidth:'58ch'}}/>
-      <E v={d.principlesAvoid} tag="p" multi path={['principlesAvoid']} cn="cs-body cs-body-em" st={{marginTop:16,maxWidth:'52ch'}}/>
-      <div className="cs-principles-grid">
-        {d.principles.map((p,i)=>(
-          <div key={i} className="cs-principle-card">
-            <ImgSlot src={p.image} path={['principles',i,'image']} ratio={p.imageRatio||'4/3'} ratioPath={['principles',i,'imageRatio']} size={p.imageSize} sizePath={['principles',i,'imageSize']} placeholder={"principle "+(i+1)+" screenshot"}/>
-            <div style={{padding:'24px 20px 20px'}}>
-              <E v={p.title} tag="h4" path={['principles',i,'title']} cn="cs-principle-title"/>
-              <E v={p.body} tag="p" multi path={['principles',i,'body']} cn="cs-principle-body"/>
-            </div>
-          </div>
-        ))}
+      <div style={{marginTop:40}}>
+        <div className="cs-eco-desktop-img">
+          <ImgSlot src={d.principlesDesktopImage} path={['principlesDesktopImage']}
+            ratio={d.principlesDesktopRatio||'2560/3044'} ratioPath={['principlesDesktopRatio']}
+            size={d.principlesDesktopSize} sizePath={['principlesDesktopSize']} radius={8}
+            placeholder="design principles desktop"/>
+        </div>
+        <div className="cs-eco-mobile-img">
+          <ImgSlot src={d.principlesMobileImage} path={['principlesMobileImage']}
+            ratio={d.principlesMobileRatio||'750/5556'} ratioPath={['principlesMobileRatio']}
+            size={d.principlesMobileSize} sizePath={['principlesMobileSize']} radius={8}
+            placeholder="design principles mobile"/>
+        </div>
       </div>
     </section>
   );
