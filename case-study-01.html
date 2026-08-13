@@ -225,7 +225,7 @@ function ImgSlot({src,alt,path,ratio='16/9',ratioPath,size,sizePath,radius=4,pla
 // ─── Default content ──────────────────────────────────────────────
 const DEFAULT = {
   heroTitle: "Designing a Matchmaking App",
-  heroIntro: "Baim B'Tov is a nonprofit that supports community-based matchmaking in Israel. I joined to lead UX research, product strategy, and UI design for a new app — not for singles, but for the matchmakers working behind the scenes.",
+  heroIntro: "Baim B'Tov is a nonprofit that supports community-based matchmaking in Israel. I joined to lead UX research, product strategy, and UI design for a new app — not for candidates, but for the matchmakers working behind the scenes.",
   heroIntro2: "This case study presents the design journey: understanding the needs of volunteer matchmakers, shaping intuitive flows, and creating a respectful, culturally aligned experience.",
   heroCtaLabel: "Browse the Web App",
   heroCtaHref: "#",
@@ -250,10 +250,10 @@ const DEFAULT = {
   roleImageRatio: '1/1',
   roleImageSize: '100%',
 
-  ecoIntro: "A qualitative study conducted by the organization included 485 singles aged 25–40 from the target community.",
+  ecoIntro: "A qualitative study conducted by the organization included 485 candidates aged 25–40 from the target community.",
   singlesStat1: "13%", singlesStat1L: "of people aged 30–50 are single",
-  singlesStat2: "75%", singlesStat2L: "of singles want society to be more involved in finding solutions",
-  singlesStat3: "71%", singlesStat3L: "of singles prefer to meet their partner through family or friends",
+  singlesStat2: "75%", singlesStat2L: "of candidates want society to be more involved in finding solutions",
+  singlesStat3: "71%", singlesStat3L: "of candidates prefer to meet their partner through family or friends",
   ecoDesktopImage: './assets/cs01/desktop.jpg',
   ecoDesktopRatio: '2536/5566',
   ecoDesktopSize: '100%',
@@ -261,7 +261,7 @@ const DEFAULT = {
   ecoMobileRatio: '750/6238',
   ecoMobileSize: '100%',
 
-  insightsMM: ["Know many relevant singles.","Prefer discretion and low visibility.","Are motivated to help.","Lack structured tools to do so effectively."],
+  insightsMM: ["Know many relevant candidates.","Prefer discretion and low visibility.","Are motivated to help.","Lack structured tools to do so effectively."],
   insightsSingles: ["Trust introductions through personal networks.","Want to be represented respectfully."],
 
   personaMMDesc: "The primary users. Volunteers, often from traditional communities, who invest time and care into helping others. They rely on informal tools and are not necessarily tech-oriented.",
@@ -269,7 +269,7 @@ const DEFAULT = {
   personaMMImage: './assets/cs01/personas.jpg',
   personaMMImageRatio: '1/1',
   personaMMImageSize: '100%',
-  personaCandDesc: "The app nickname for the singles. Not direct users, but central to the system. Their presence must be handled with sensitivity.",
+  personaCandDesc: "The app nickname for the candidates. Not direct users, but central to the system. Their presence must be handled with sensitivity.",
   personaCandNeeds: ["Privacy and minimal exposure.","Representation through trusted intermediaries.","Respectful and accurate portrayal."],
   personaCandImage: './assets/cs01/personas.jpg',
   personaCandImageRatio: '1/1',
@@ -547,7 +547,7 @@ function EcosystemSection({d}) {
         </div>
         <div className="cs-insights-divider"/>
         <div className="cs-insights-col">
-          <div className="cs-eco-tag mono" style={{marginBottom:20}}>THE SINGLES</div>
+          <div className="cs-eco-tag mono" style={{marginBottom:20}}>THE CANDIDATES</div>
           <ul className="cs-insight-list">
             {d.insightsSingles.map((item,i)=>(
               <li key={i}><E v={item} multi path={['insightsSingles',i]}/></li>
